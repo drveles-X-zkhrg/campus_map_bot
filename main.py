@@ -1,31 +1,26 @@
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.common.by import By
-from time import sleep
-from dotenv import load_dotenv, dotenv_values
-import os
+import requests
+import pprint
+import time
 
 
-def loging_dotenv():
-    dotenv_path = os.path.join(".env")
-    load_dotenv(dotenv_path)
+def test_requests():
+    user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+    payload = {"username": "jenniffr@student.21-school.ru", "password": "b"}
+    headers = {
+        "User-Agent": user_agent,
+    }
+    with requests.Session() as session:
+        response = session.get("https://edu.21-school.ru/", headers=headers, auth=("jenniffr@student.21-school.ru", "a"))
+
+        print(response.url)
+        print(response.status_code)
+        response = session.get("https://edu.21-school.ru/")
+        print(response.url)
+        print(response.status_code)
 
 
 def main():
-    driver = webdriver.Chrome()
-    driver.get("https://edu.21-school.ru/")
-    loging_dotenv()
-    login_field = driver.find_element(By.NAME, "username")
-    login_field.send_keys(dotenv_values(".env").get("LOGIN"))
-    pasword_field = driver.find_element(By.NAME, "password")
-    pasword_field.send_keys(dotenv_values(".env").get("PASSWORD"))
-    driver.find_element(By.XPATH, '//*[@id="login"]/div/div/div[2]/div/div/form/div[3]/button').click()
-    driver.get("https://edu.21-school.ru/campus") 
-
-
-    print(login_field)
-
-    sleep(10)
+    test_requests()
 
 
 if __name__ == "__main__":
