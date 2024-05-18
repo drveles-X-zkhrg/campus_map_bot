@@ -49,17 +49,16 @@ def trying_login_with_cookies():
         # for cookie in driver.get_cookies():
         #     print(cookie)
         for cookie in pickle.load(open("cookies", "rb")):
-        
 
-        # cookie = {
-        #     'domain': 'edu.21-school.ru',
-        #     "httpOnly": False,
-        #     "name": "tokenId",
-        #     "path": "/",
-        #     "sameSite": "Lax",
-        #     "secure": False,
-        #     "value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ5V29landCTmxROWtQVEpFZnFpVzRrc181Mk1KTWkwUHl2RHNKNlgzdlFZIn0.eyJleHAiOjE3MTYwNjY2MzMsImlhdCI6MTcxNjAzMDYzMywiYXV0aF90aW1lIjoxNzE2MDMwNjMzLCJqdGkiOiJmYjUyMDUyYy1hMjU3LTRmOTQtODdiNy1kZWQyYmRiNzc1MWYiLCJpc3MiOiJodHRwczovL2F1dGguc2JlcmNsYXNzLnJ1L2F1dGgvcmVhbG1zL0VkdVBvd2VyS2V5Y2xvYWsiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMmQ4ZWZmYjAtYWYxYy00NTQ4LWIxNmUtZDdiNzhmZjk0NWNjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic2Nob29sMjEiLCJub25jZSI6IjJmNjJiZjM2LWQ3ZWYtNDVkYS04OWUxLWQ5OTM2NzVkNTZlYyIsInNlc3Npb25fc3RhdGUiOiI5YWJlYzlkYy00MGFkLTQzZTAtOGFjOS02YTMyYTA3ZmJlMTMiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHBzOi8vZWR1LjIxLXNjaG9vbC5ydSIsImh0dHBzOi8vZWR1LWFkbWluLjIxLXNjaG9vbC5ydSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1lZHVwb3dlcmtleWNsb2FrIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidXNlcl9pZCI6ImZmMzUxZGYxLTRiMjItNDM3My1iOTRiLWIyYmIxNTVhZGQ2YyIsIm5hbWUiOiJKZW5uaWZmZXIgUnViZW4iLCJhdXRoX3R5cGVfY29kZSI6ImRlZmF1bHQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqZW5uaWZmckBzdHVkZW50LjIxLXNjaG9vbC5ydSIsImdpdmVuX25hbWUiOiJKZW5uaWZmZXIiLCJmYW1pbHlfbmFtZSI6IlJ1YmVuIiwiZW1haWwiOiJqZW5uaWZmckBzdHVkZW50LjIxLXNjaG9vbC5ydSJ9.tvt_flha6mRBLGIN5iRVCxqU4uUS3hlWJMEKYMxs7icmS4EwgZifrGOX0XPxHuFkHXHFvrjDzYDq4OgHaqrcxAglE0QMhAmuHDnxoPWjzlnWSXarY-zl_E-z8K3Jn6AmIS9TFtoXNxg2cLSxHWj3UWjoYPBY75QclY9Rbmw4lY1Q_hqaqM76Y8Zh4-uz1rmQJ-IiFHUu9D6wGRTUVcnrjRO24PcGDnTLhIajFNAnqL1e_Bsqhx1zDSaTm8v01oZ7EA029E78pT9eLiHeY6rkx7cwrqmGJyHuROPnB5EEFC5wBFUCfHCR1Fl1I_8aM0oNsLAVRxfxfXEKbeTFf5-wKQ",
-        # }
+            # cookie = {
+            #     'domain': 'edu.21-school.ru',
+            #     "httpOnly": False,
+            #     "name": "tokenId",
+            #     "path": "/",
+            #     "sameSite": "Lax",
+            #     "secure": False,
+            #     "value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJ5V29landCTmxROWtQVEpFZnFpVzRrc181Mk1KTWkwUHl2RHNKNlgzdlFZIn0.eyJleHAiOjE3MTYwNjY2MzMsImlhdCI6MTcxNjAzMDYzMywiYXV0aF90aW1lIjoxNzE2MDMwNjMzLCJqdGkiOiJmYjUyMDUyYy1hMjU3LTRmOTQtODdiNy1kZWQyYmRiNzc1MWYiLCJpc3MiOiJodHRwczovL2F1dGguc2JlcmNsYXNzLnJ1L2F1dGgvcmVhbG1zL0VkdVBvd2VyS2V5Y2xvYWsiLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiMmQ4ZWZmYjAtYWYxYy00NTQ4LWIxNmUtZDdiNzhmZjk0NWNjIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoic2Nob29sMjEiLCJub25jZSI6IjJmNjJiZjM2LWQ3ZWYtNDVkYS04OWUxLWQ5OTM2NzVkNTZlYyIsInNlc3Npb25fc3RhdGUiOiI5YWJlYzlkYy00MGFkLTQzZTAtOGFjOS02YTMyYTA3ZmJlMTMiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHBzOi8vZWR1LjIxLXNjaG9vbC5ydSIsImh0dHBzOi8vZWR1LWFkbWluLjIxLXNjaG9vbC5ydSJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1lZHVwb3dlcmtleWNsb2FrIiwib2ZmbGluZV9hY2Nlc3MiLCJ1bWFfYXV0aG9yaXphdGlvbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7ImFjY291bnQiOnsicm9sZXMiOlsibWFuYWdlLWFjY291bnQiLCJtYW5hZ2UtYWNjb3VudC1saW5rcyIsInZpZXctcHJvZmlsZSJdfX0sInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidXNlcl9pZCI6ImZmMzUxZGYxLTRiMjItNDM3My1iOTRiLWIyYmIxNTVhZGQ2YyIsIm5hbWUiOiJKZW5uaWZmZXIgUnViZW4iLCJhdXRoX3R5cGVfY29kZSI6ImRlZmF1bHQiLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqZW5uaWZmckBzdHVkZW50LjIxLXNjaG9vbC5ydSIsImdpdmVuX25hbWUiOiJKZW5uaWZmZXIiLCJmYW1pbHlfbmFtZSI6IlJ1YmVuIiwiZW1haWwiOiJqZW5uaWZmckBzdHVkZW50LjIxLXNjaG9vbC5ydSJ9.tvt_flha6mRBLGIN5iRVCxqU4uUS3hlWJMEKYMxs7icmS4EwgZifrGOX0XPxHuFkHXHFvrjDzYDq4OgHaqrcxAglE0QMhAmuHDnxoPWjzlnWSXarY-zl_E-z8K3Jn6AmIS9TFtoXNxg2cLSxHWj3UWjoYPBY75QclY9Rbmw4lY1Q_hqaqM76Y8Zh4-uz1rmQJ-IiFHUu9D6wGRTUVcnrjRO24PcGDnTLhIajFNAnqL1e_Bsqhx1zDSaTm8v01oZ7EA029E78pT9eLiHeY6rkx7cwrqmGJyHuROPnB5EEFC5wBFUCfHCR1Fl1I_8aM0oNsLAVRxfxfXEKbeTFf5-wKQ",
+            # }
             print(cookie)
             driver.add_cookie(cookie)
 

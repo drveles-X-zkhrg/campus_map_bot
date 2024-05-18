@@ -6,7 +6,6 @@ import requests, time, os
 from dotenv import dotenv_values
 
 
-
 def test_requests():
     user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"  # iMac
     user_login = dotenv_values(".env").get("LOGIN")
@@ -50,4 +49,3 @@ def test_requests():
             )
             print(response.status_code)
             print(response.text)
-
