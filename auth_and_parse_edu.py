@@ -9,6 +9,9 @@ File format:
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+
 import time, re
 
 
@@ -64,7 +67,17 @@ def login_and_parse_campus_map():
         "un": "/html/body/div/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[3]",
         "va": "/html/body/div/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[4]",
     }
-    driver = webdriver.Chrome()
+    
+    chromedriver_path = './chromedriver'
+    chrome_service = Service(chromedriver_path)
+    chrome_options = Options()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--disable-gpu")
+    chrome_options.add_argument("--remote-debugging-port=9222")
+
+    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     try:
         driver.get("https://edu.21-school.ru/campus")
