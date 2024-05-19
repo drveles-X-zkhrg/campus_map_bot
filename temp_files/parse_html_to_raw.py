@@ -1,6 +1,6 @@
 def parse_raw_from_cluster_htmls(cluster_name):
     """
-    This func parce raw data from 
+    This func parse raw data from cluster html files 
 
     Return:
     peers {(nick, cluster_name, row_char, row_int)}
@@ -34,7 +34,9 @@ def parse_raw_from_cluster_htmls(cluster_name):
             row_number = None
 
         peers.add((match.group(1),cluster_name, row_letter, row_number))
-    print(peers)
+    for peer in peers:
+        print(peer)
+
     print(len(peers))
 
 if __name__ == "__main__":
