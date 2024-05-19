@@ -14,6 +14,9 @@
 
 ## DOCs
 
+вебдрайвер для линукс 
+https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.60/linux64/chrome-linux64.zip
+
 ### DB structure
 s21 peer 
 - id: int
