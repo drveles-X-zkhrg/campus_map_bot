@@ -73,9 +73,15 @@ def login_and_parse_campus_map():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument('window-size=1200x1040')   
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--remote-debugging-port=9222")
+
+    from pyvirtualdisplay import Display
+
+    display = Display(visible=0, size=(800, 600))
+    display.start()
 
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
@@ -88,8 +94,8 @@ def login_and_parse_campus_map():
         password_field.send_keys(dotenv_values(".env").get("PASSWORD"))
         time.sleep(0.5)
         password_field.send_keys(Keys.ENTER)
-        time.sleep(3)
-        # finish open site
+        time.sleep(10)
+
 
         # showing hidden (collapsed) floors
         floor2_t = driver.find_element(
