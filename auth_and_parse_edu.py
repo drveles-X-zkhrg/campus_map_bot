@@ -64,8 +64,8 @@ def login_and_parse_campus_map():
         "si": '//*[@id="root"]/div[2]/div/div[2]/div[1]/div[2]/div/div/ul/li[3]',
         "ge": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[1]',
         "pr": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[2]',
-        "un": "/html/body/div/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[3]",
-        "va": "/html/body/div/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[4]",
+        "un": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[3]',
+        "va": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[4]',
     }
     
     chromedriver_path = './chromedriver'
@@ -74,15 +74,6 @@ def login_and_parse_campus_map():
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument('window-size=1200x1040')   
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument("--remote-debugging-port=9222")
-
-    from pyvirtualdisplay import Display
-
-    display = Display(visible=0, size=(800, 600))
-    display.start()
-
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     try:
@@ -94,8 +85,8 @@ def login_and_parse_campus_map():
         password_field.send_keys(dotenv_values(".env").get("PASSWORD"))
         time.sleep(0.5)
         password_field.send_keys(Keys.ENTER)
-        time.sleep(10)
-
+        time.sleep(3)
+        #end auth and 
 
         # showing hidden (collapsed) floors
         floor2_t = driver.find_element(
@@ -143,6 +134,5 @@ def time_test_parse():
 
 
 if __name__ == "__main__":
-
     # login_and_parse_campus_map()
     time_test_parse()
