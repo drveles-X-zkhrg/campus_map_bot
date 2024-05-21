@@ -12,7 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 
-import time, re
+import time, re, logging
 
 
 def parse_raw_data_from_cluster(cluster_name, cluster_data) -> set:
@@ -73,7 +73,6 @@ def login_and_parse_campus_map():
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument('window-size=1200x1040')   
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
@@ -112,7 +111,7 @@ def login_and_parse_campus_map():
             print(f"start parse {cluster_name}")
             cluster_xpath = clusters_xpaths_dct[cluster_name]
             driver.find_element(By.XPATH, cluster_xpath).click()
-            time.sleep(3.5)
+            time.sleep(10)
             html = driver.find_element(By.TAG_NAME, "body").get_attribute("innerHTML")
             peers_from_this_cluster = parse_raw_data_from_cluster(cluster_name, html)
             if not peers_from_this_cluster:
