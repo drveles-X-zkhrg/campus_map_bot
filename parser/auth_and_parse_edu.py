@@ -48,7 +48,7 @@ def parse_raw_data_from_cluster(cluster_name, cluster_data) -> set:
 
         peers.add((match.group(1), cluster_name, row_letter, row_number))
 
-    # here heed logging to 
+    # here heed logging to
     print(f"{len(peers)} peers in {cluster_name}")
 
     return peers
@@ -65,14 +65,14 @@ def login_and_parse_campus_map():
         "un": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[3]',
         "va": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[4]',
     }
-    
-    chromedriver_path = './chromedriver'
+
+    chromedriver_path = "./chromedriver"
     chrome_service = Service(chromedriver_path)
     chrome_options = Options()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-gpu")
-    chrome_options.add_argument('window-size=1200x1040')   
+    chrome_options.add_argument("window-size=1200x1040")
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
     try:
@@ -111,10 +111,12 @@ def login_and_parse_campus_map():
             html = driver.find_element(By.TAG_NAME, "body").get_attribute("innerHTML")
             peers_from_this_cluster = parse_raw_data_from_cluster(cluster_name, html)
             if not peers_from_this_cluster:
-                print(f"\033[91m cluster {cluster_name} empty or failed load cluster data \033[0m")
+                print(
+                    f"\033[91m cluster {cluster_name} empty or failed load cluster data \033[0m"
+                )
             all_peers.update(peers_from_this_cluster)
-        
-        print(f"\nPeers counter from all clusters {len(all_peers)}\n")
+
+        print(f"\nPeers counter from all clusters {len(all_peers)} at {time.ctime()}\n")
 
     except Exception as ex:
         print(ex)
