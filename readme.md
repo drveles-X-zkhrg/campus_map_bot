@@ -35,6 +35,26 @@ crontab
 
 scp jenniffr@87.242.85.185:/home/jenniffr/friends_bot/cron.log ./
 
+Для удобочитаемого запроса
+```
+SELECT 
+    s21_peers.s21_nickname AS "Peer Nickname",
+    CASE 
+        WHEN sessions.online THEN 'Online' 
+        ELSE 'Offline' 
+    END AS "Status",
+    clusters.name AS "Cluster Name",
+    sessions."row" AS "Row",
+    sessions.place AS "Place",
+    sessions.timestamp AS "Timestamp"
+FROM 
+    sessions
+JOIN 
+    s21_peers ON sessions.peer_id = s21_peers.id
+JOIN 
+    clusters ON sessions.cluster_id = clusters.id;
+```
+
 ### DB structure
 s21 peer - заполняется после парсинга 
 - id: int

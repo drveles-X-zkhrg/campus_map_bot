@@ -1,71 +1,19 @@
 from dotenv import dotenv_values
-
 """
 Gettin login and pass from .env file to edu.21-school.ru
 File format:
     LOGIN=login
     PASSWORD=pass
 """
-from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+import time
+from .parse_raw_from_html import parse_raw_data_from_cluster
+from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 
-import time, re, logging
-
-
-def parse_raw_data_from_cluster(cluster_name, cluster_data) -> set:
-    """
-    ### This func parse peers info from clustests data
-
-    Return:
-    `peers in cluster:` {(nick, cluster_name, row_char, row_int), ...}
-    """
-
-    peers = set()
-    profile_pattern = re.compile(r"profile/(\w+)@")
-    profiles = profile_pattern.finditer(cluster_data)
-
-    for match in profiles:
-        start_pos = match.start()
-        end_pos = match.end()
-
-        left_part = cluster_data[:start_pos]
-        left_part = "".join(reversed(left_part))
-        letter_match = re.search(r"<([a-z])>", left_part)
-        if letter_match:
-            row_letter = letter_match.group(0)[::-1][1]
-        else:
-            row_letter = None
-
-        right_part = cluster_data[end_pos:]
-        number_match = re.search(r">(\d)<", right_part)
-        if number_match:
-            row_number = number_match.group(0)[1]
-        else:
-            row_number = None
-
-        peers.add((match.group(1), cluster_name, row_letter, row_number))
-
-    # here heed logging to
-    print(f"{len(peers)} peers in {cluster_name}")
-
-    return peers
-
-
-def login_and_parse_campus_map():
-    all_peers = set()
-    clusters_xpaths_dct = {
-        "et": '//*[@id="root"]/div[2]/div/div[2]/div[1]/div[2]/div/div/ul/li[1]',
-        "ev": '//*[@id="root"]/div[2]/div/div[2]/div[1]/div[2]/div/div/ul/li[2]',
-        "si": '//*[@id="root"]/div[2]/div/div[2]/div[1]/div[2]/div/div/ul/li[3]',
-        "ge": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[1]',
-        "pr": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[2]',
-        "un": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[3]',
-        "va": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[4]',
-    }
-
+def create_chromedriver():
     chromedriver_path = "./venv/chromedriver"
     chrome_service = Service(chromedriver_path)
     chrome_options = Options()
@@ -73,8 +21,12 @@ def login_and_parse_campus_map():
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("window-size=1200x1040")
-    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
+    driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+    return driver
+
+
+def auth_edu(driver):
     try:
         driver.get("https://edu.21-school.ru/campus")
         login_field = driver.find_element(By.NAME, "username")
@@ -85,7 +37,11 @@ def login_and_parse_campus_map():
         time.sleep(0.5)
         password_field.send_keys(Keys.ENTER)
         time.sleep(3)
+    except Exception as ex:
+        print(ex)
 
+def displaying_floors(driver):
+    try:
         floor2_t = driver.find_element(
             By.XPATH, '//*[@id="root"]/div[2]/div/div[2]/div[1]/div[2]'
         )
@@ -102,12 +58,27 @@ def login_and_parse_campus_map():
                 By.XPATH, '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[1]/button/div'
             ).click()
             time.sleep(1)
+    except Exception as ex:
+        print(ex)
+
+def parse_each_cluster(driver):
+    all_peers = set()
+    clusters_xpaths_dct = {
+        "et": '//*[@id="root"]/div[2]/div/div[2]/div[1]/div[2]/div/div/ul/li[1]',
+        "ev": '//*[@id="root"]/div[2]/div/div[2]/div[1]/div[2]/div/div/ul/li[2]',
+        "si": '//*[@id="root"]/div[2]/div/div[2]/div[1]/div[2]/div/div/ul/li[3]',
+        "ge": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[1]',
+        "pr": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[2]',
+        "un": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[3]',
+        "va": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[4]',
+    }
+    try:
 
         for cluster_name in clusters_xpaths_dct:
             print(f"start parse {cluster_name}")
             cluster_xpath = clusters_xpaths_dct[cluster_name]
             driver.find_element(By.XPATH, cluster_xpath).click()
-            time.sleep(4)
+            time.sleep(4.5)
             html = driver.find_element(By.TAG_NAME, "body").get_attribute("innerHTML")
             peers_from_this_cluster = parse_raw_data_from_cluster(cluster_name, html)
             if not peers_from_this_cluster:
@@ -118,20 +89,37 @@ def login_and_parse_campus_map():
 
         print(f"\nPeers counter from all clusters {len(all_peers)} at {time.ctime()}\n")
 
+    
     except Exception as ex:
         print(ex)
 
     finally:
-        driver.close()
-        driver.quit()
+        return all_peers
+
+
+def login_and_parse_campus_map():
+
+    
+    driver = create_chromedriver()
+
+    auth_edu(driver)
+    displaying_floors(driver)
+    all_peers = parse_each_cluster(driver)
+
+    driver.close()
+    driver.quit()
+    return all_peers
+
+
 
 
 def time_test_parse():
     start = time.time()
-    login_and_parse_campus_map()
+    temp = login_and_parse_campus_map()
     print(f"parse take {time.time() - start} seconds")
+    return temp
 
 
 if __name__ == "__main__":
-    # login_and_parse_campus_map()
-    time_test_parse()
+    login_and_parse_campus_map()
+    # time_test_parse()
