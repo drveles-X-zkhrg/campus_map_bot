@@ -1,17 +1,40 @@
-from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.utils.keyboard import InlineKeyboardBuilder
+from typing import List
 
-defualt_kb = ReplyKeyboardMarkup(
-    keyboard=[
-        [KeyboardButton(text="Кнопка"), KeyboardButton(text="Питон")],
-    ],
-    resize_keyboard=True,
-    input_field_placeholder="Че будем делать?"
-)
 
-friends_kb = ReplyKeyboardMarkup(
-    keyboard=[
-        [KeyboardButton(text="добавить"), KeyboardButton(text="удалить"), KeyboardButton(text="назад")]
-    ],
-    resize_keyboard=True,
-    input_field_placeholder="выбирай добавить или удалить"
-)
+def get_main_keyboard():
+    buttons = [
+        [
+            InlineKeyboardButton(text="Добавить друзей",
+                                 callback_data="act_add"),
+            InlineKeyboardButton(text="Удалить друзей",
+                                 callback_data="act_delete")
+        ]
+    ]
+    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
+    return keyboard
+
+
+def get_friends_list_to_delete_keyboard(l: List[str]) -> InlineKeyboardBuilder:
+    builder = InlineKeyboardBuilder()
+    for i in range(len(l)):
+        builder.row(InlineKeyboardButton(
+            text=l[i], callback_data=f"delete_{l[i]}"
+        ))
+
+    builder.row(InlineKeyboardButton(
+        text="🔙", callback_data=f"act_start"
+    ))
+
+    return builder
+
+
+def get_back_keyboard() -> InlineKeyboardBuilder:
+    builder = InlineKeyboardBuilder()
+
+    builder.row(InlineKeyboardButton(
+        text="🔙", callback_data=f"act_start"
+    ))
+
+    return builder

@@ -1,116 +1,155 @@
+from aiogram.utils.keyboard import InlineKeyboardBuilder
 import asyncio
 import logging
 import sys
 from dotenv import dotenv_values
 from typing import List
+from aiogram import F
 
 from aiogram import Bot, Dispatcher, html
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
-from aiogram.types import Message, InlineKeyboardButton
-from keyboards import defualt_kb, friends_kb #
-from states import FriendsStatesGroup
-from aiogram.filters import Command, StateFilter
-from aiogram.fsm.context import FSMContext
+from aiogram.types import Message, InlineKeyboardButton, CallbackQuery, ReplyKeyboardRemove
+from keyboards import get_main_keyboard, get_friends_list_to_delete_keyboard, get_back_keyboard
+from aiogram.filters import Command
+from aiogram.methods.send_message import SendMessage
+from aiogram.methods.edit_message_text import EditMessageText
+
 
 TOKEN = dotenv_values('.env').get('API_TOKEN')
 
 dp = Dispatcher()
 
 
-@dp.message(StateFilter(None), CommandStart())
-async def command_start_handler(message: Message, state: FSMContext) -> None:
-    await message.answer(f"Hello, {html.bold(message.from_user.full_name)}!")
-    await state.set_state(FriendsStatesGroup.main)
+def make_answer_list_friends(l: List[str]) -> str:
+    return 'Напиши никнейм друга. Ниже приведены люди которые уже есть в списке твоих друзей.\n'+'\n'.join(l)
 
-# стейты можно добавить
-@dp.message(StateFilter(FriendsStatesGroup.main))
-async def echo_handler(message: Message, state: FSMContext) -> None:
+
+@dp.message(CommandStart())
+async def start_command_handler(message: Message) -> None:
     try:
-        await message.answer("Список твоих друзей эт кампус:", reply_markup=defualt_kb)
-        # тут должен быть вообще вызов апишки
-        await state.set_state(FriendsStatesGroup.choose_operation_with_friends)
+        # s = getFriends()
+        await message.answer("Список твоих друзей эт кампус: у вас 0 друзей и 0 онайлг",
+                             reply_markup=get_main_keyboard())
     except TypeError:
         await message.answer("поломка типа")
 
 
-@dp.message(StateFilter(FriendsStatesGroup.choose_operation_with_friends))
-async def edit_freiends_list(message: Message) -> None:
+@dp.callback_query(F.data == "act_start")
+async def start_callback_handler(callback: CallbackQuery) -> None:
     try:
-        # s = getFriendsFromBd условно
-        # s = getCountFriends()
-        # если список друзей размер 0 то выводим одну кнопку добавить друга
-        await message.answer("cerf", reply_markup=friends_kb)
-        # тут должен быть вообще вызов апишки
+        # s = getFriends()
+        await callback.message.answer("Список твоих друзей эт кампус: у вас 0 друзей и 0 онайлг",
+                                      reply_markup=get_main_keyboard())
     except TypeError:
-        await message.answer("поломка типа")
+        await callback.message.answer("поломка типа")
 
 
-@dp.message(StateFilter(FriendsStatesGroup.delete_friends))
-async def delete_friends(message: Message, state: FSMContext) -> None:
+@dp.message(Command('add'))
+async def add_friend_command_handler(message: Message) -> None:
     try:
         # s = getFriendsFromBd условно
-        s = [ 
-            'jenniffr@student.21-school.ru',
-            'kalynkei@student.21-school.ru', 
-            'rachelsa@student.21-school.ru',
-            'shandych@student.21-school.ru'
+        s = [
+            'jenniffr',
+            'kalynkei',
+            'rachelsa',
+            'shandych'
         ]
-        # если список друзей размер 0 то выводим одну кнопку добавить друга
-        await message.answer("cerf", reply_markup=friends_kb)
+        # kb = build_list_markup(s)
+        await message.answer(make_answer_list_friends(s),
+                             reply_markup=get_back_keyboard()
+                             .as_markup())
+    except TypeError:
+        await message.answer("добавить поломка")
+
+
+@dp.callback_query(F.data == "act_add")
+async def add_friend_callback_handler(callback: CallbackQuery) -> None:
+    try:
+        # s = getFriendsFromBd условно
+        s = [
+            'jenniffr',
+            'kalynkei',
+            'rachelsa',
+            'shandych'
+        ]
+        await callback.message.answer(make_answer_list_friends(s),
+                                      reply_markup=get_back_keyboard()
+                                      .as_markup())
+    except TypeError:
+        await callback.message.answer("поломка типа")
+
+
+@dp.message(Command("delete"))
+async def delete_friend_command_handler(message: Message) -> None:
+    try:
+        # s = getFriendsFromBd условно
+        s = [
+            'jenniffr',
+            'kalynkei',
+            'rachelsa',
+            'shandych'
+        ]
+        await message.answer(
+            'Нажми на ник друга, которого хочешь удалить.',
+            reply_markup=get_friends_list_to_delete_keyboard(s)
+            .as_markup()
+        )
+    except TypeError:
+        await message.answer("поломка типа")
+
+
+@dp.callback_query(F.data == "act_delete")
+async def delete_friend_callback_handler(callback: CallbackQuery) -> None:
+    try:
+        # s = getFriendsFromBd условно
+        s = [
+            'jenniffr',
+            'kalynkei',
+            'rachelsa',
+            'shandych'
+        ]
+        await callback.message.answer(
+            'Нажми на ник друга, которого хочешь удалить.',
+            reply_markup=get_friends_list_to_delete_keyboard(s)
+            .as_markup()
+        )
         # тут должен быть вообще вызов апишки
     except TypeError:
-        await message.answer("поломка типа")    
+        await callback.message.answer("поломка типа")
+
+
+@dp.callback_query(F.data.startswith("delete_"))
+async def delete_chosen_friend_callback_handler(callback: CallbackQuery):
+    del_person = callback.data.replace('delete_', '')
+    # delFriendFromBd(del_person) условно
+    # s = getFriendsFromBd() условно
+    # часть сверху надо выполнить синхронно
+    s = [
+        'jenniffr',
+        'kalynkei',
+        'rachelsa',
+        'shandych'
+    ]
+    s.remove(del_person)
+    await callback.message.edit_text(
+        "выбери кого хочешь удалить",
+        reply_markup=get_friends_list_to_delete_keyboard(s)
+        .as_markup()
+    )
+    await callback.answer(
+        text=f"{del_person} удален.",
+        show_alert=True
+    )
 
 
 async def main() -> None:
-    bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+    bot = Bot(token=TOKEN, default=DefaultBotProperties(
+        parse_mode=ParseMode.HTML))
     await dp.start_polling(bot)
 
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, stream=sys.stdout)
     asyncio.run(main())
-
-# при сообщении старт делаем проверку бд
-
-
-# # новый импорт
-# from aiogram.utils.keyboard import InlineKeyboardBuilder
-
-# @dp.message(Command("inline_url"))
-# async def cmd_inline_url(message: types.Message, bot: Bot):
-#     builder = InlineKeyboardBuilder()
-#     builder.row(types.InlineKeyboardButton(
-#         text="GitHub", url="https://github.com")
-#     )
-#     builder.row(types.InlineKeyboardButton(
-#         text="Оф. канал Telegram",
-#         url="tg://resolve?domain=telegram")
-#     )
-
-#     # Чтобы иметь возможность показать ID-кнопку,
-#     # У юзера должен быть False флаг has_private_forwards
-#     user_id = 1234567890
-#     chat_info = await bot.get_chat(user_id)
-#     if not chat_info.has_private_forwards:
-#         builder.row(types.InlineKeyboardButton(
-#             text="Какой-то пользователь",
-#             url=f"tg://user?id={user_id}")
-#         )
-
-#     await message.answer(
-#         'Выберите ссылку',
-#         reply_markup=builder.as_markup(),
-#     )
-
-
-def build_list_markup(l: List) -> InlineKeyboardBuilder:
-    builder = InlineKeyboardBuilder()
-    for i in range(len(l)):
-        builder.row(InlineKeyboardButton(
-            text=l[i]
-        ))
-
-    return builder
