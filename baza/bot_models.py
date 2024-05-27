@@ -44,7 +44,7 @@ friends_table = Table(
     "friends",
     metadata_objs,
     Column("tg_id", Integer),
-    Column("friend", Integer, ForeignKey("s21_peer.id")),
+    Column("friend", Integer, ForeignKey("s21_peers.id")),
 )
 
 cluster_table = Table(
@@ -58,9 +58,9 @@ session_table = Table(
     "sessions",
     metadata_objs,
     Column("id", Integer, primary_key=True),
-    Column("peer", Integer, ForeignKey("s21_peer.id")),
+    Column("peer_id", Integer, ForeignKey("s21_peers.id")),
     Column("online", Boolean),
-    Column("cluster", Integer, ForeignKey("cluster.id")),
+    Column("cluster_id", Integer, ForeignKey("clusters.id")),
     Column("row", CHAR),
     Column("place", Integer),
     Column("timestamp", TIMESTAMP),

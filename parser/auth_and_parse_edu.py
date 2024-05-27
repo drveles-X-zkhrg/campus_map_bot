@@ -66,7 +66,7 @@ def login_and_parse_campus_map():
         "va": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[4]',
     }
 
-    chromedriver_path = "./chromedriver"
+    chromedriver_path = "./venv/chromedriver"
     chrome_service = Service(chromedriver_path)
     chrome_options = Options()
     chrome_options.add_argument("--headless")

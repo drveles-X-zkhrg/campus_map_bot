@@ -24,6 +24,8 @@
 
 ## DOCs
 
+Вебдрайвер должен лежать в `.venv/`
+
 вебдрайвер для линукс 
 https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.60/linux64/chrome-linux64.zip
 
@@ -31,22 +33,22 @@ https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.60/linux64/c
 crontab 
 */1 * * * * cd /home/jenniffr/friends_bot/ && . /home/jenniffr/friends_bot/venv/bin/activate && /home/jenniffr/friends_bot/venv/bin/python3 /home/jenniffr/friends_bot/main.py >> /home/jenniffr/friends_bot/cron.log
 
-scp jenniffr@87.242.85.185:home/jenniffr/friends_bot/cron.log ./
+scp jenniffr@87.242.85.185:/home/jenniffr/friends_bot/cron.log ./
 
 ### DB structure
-s21 peer 
+s21 peer - заполняется после парсинга 
 - id: int
 - s21_nickname: char[128]
 
-friend (many_to_many) 
+friend (many_to_many) - заполняется API бота
 - tg_id: int
 - user: foreign_key(s21_peer)
 
-cluster
+cluster - заполняется при инициализации бд
 - id: int
 - name: char[128]
 
-session
+session - заполняется после парсинга 
 - id: int 
 - user: foreign_key(s21_peer)
 - online: bool
