@@ -1,5 +1,5 @@
 """
-Entry point to parse and update db
+Entry point to parse and update db 
 """
 from parser.parse_edu import *
 from sql_db.bot_models_db import *
