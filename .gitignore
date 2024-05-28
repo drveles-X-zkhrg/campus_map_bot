@@ -1,3 +1,9 @@
+# Project files
+.samples/
+.DS_Store
+.vscode/
+chromedriver
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
