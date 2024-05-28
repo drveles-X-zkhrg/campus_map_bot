@@ -1,0 +1,2 @@
+To run appliction
+fastapi dev main.py
