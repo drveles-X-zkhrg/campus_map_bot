@@ -9,7 +9,7 @@ File format:
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 import time
-from .parse_raw_from_html import parse_raw_data_from_cluster
+from parse_raw_from_html import *
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service

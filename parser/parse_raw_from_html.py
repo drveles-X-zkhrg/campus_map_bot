@@ -1,9 +1,9 @@
-import re
+import re, json
 
 
 def parse_raw_data_from_cluster(cluster_name, cluster_data) -> set:
     """
-    ### This func parse peers info from clustests data
+    ### This func parse peers info from clustests data 
 
     Return:
     `peers in cluster:` {(nick, cluster_name, row_char, row_int), ...}
@@ -38,3 +38,16 @@ def parse_raw_data_from_cluster(cluster_name, cluster_data) -> set:
     print(f"{len(peers)} peers in {cluster_name}")
 
     return peers
+
+def convert_to_json(parsed_data: set[tuple]):
+    """
+    Convert a set of tuples to JSON.
+    """
+    if not isinstance(parsed_data, set) or not len(parsed_data):
+        return None
+    
+    data_as_list = list(parsed_data)
+    
+    json_parsed_data = json.dumps(data_as_list)
+    
+    return json_parsed_data
