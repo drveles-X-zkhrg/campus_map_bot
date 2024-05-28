@@ -3,15 +3,13 @@ from .bot_models_db import *
 from .bot_initialize_db import *
 
 
-def all_peers_offline():
+def turn_all_peers_offline():
     """
-    ## This func turned off column sessions.online
+    ## Turn off the online column for every session
     """
     try:
-        # Создаем выражение SQL для обновления значений
         update_statement = update(session_table).values(online=False)
 
-        # Выполняем запрос
         with engine.connect() as conn:
             conn.execute(update_statement)
             conn.commit()
@@ -22,16 +20,15 @@ def all_peers_offline():
 
 def update_peers_sessions(peers_sessions):
     """
-    ## This func update sessions info in DB
+    ## Update peers and sessions data in DB
 
-    Inputed:
-    `peers in cluster:` {(nick, cluster_name, row_char, row_int), ...}
+    Parameter:
+    `peers_sessions` {(nick, cluster_name, row_char, row_int), ...}
     """
 
     try:
-        # произошла атомарность
         with Session() as session:
-            all_peers_offline()
+            turn_all_peers_offline()
 
             for peer_nick, peer_cluster, peer_row, peer_place in peers_sessions:
                 s21_peer = session.execute(
@@ -56,7 +53,6 @@ def update_peers_sessions(peers_sessions):
                 session_record = session.execute(
                     select(session_table).where(session_table.c.peer_id == peer_id_temp)
                 ).fetchone()
-
                 if session_record:
                     session.execute(
                         update(session_table)
@@ -84,9 +80,6 @@ def update_peers_sessions(peers_sessions):
 
     except Exception as ex:
         print(ex)
-
-    finally:
-        pass
 
 
 if __name__ == "__main__":

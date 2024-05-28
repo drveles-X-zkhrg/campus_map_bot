@@ -1,5 +1,6 @@
 import re
 
+
 def parse_raw_data_from_cluster(cluster_name, cluster_data) -> set:
     """
     ### This func parse peers info from clustests data
@@ -33,7 +34,7 @@ def parse_raw_data_from_cluster(cluster_name, cluster_data) -> set:
 
         peers.add((match.group(1), cluster_name, row_letter, row_number))
 
-    # here heed logging to
+    # here heed logging to log file
     print(f"{len(peers)} peers in {cluster_name}")
 
     return peers

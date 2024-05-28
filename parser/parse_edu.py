@@ -1,4 +1,5 @@
 from dotenv import dotenv_values
+
 """
 Gettin login and pass from .env file to edu.21-school.ru
 File format:
@@ -12,6 +13,7 @@ from .parse_raw_from_html import parse_raw_data_from_cluster
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+
 
 def create_chromedriver():
     chromedriver_path = "./venv/chromedriver"
@@ -27,6 +29,9 @@ def create_chromedriver():
 
 
 def auth_edu(driver):
+    """
+    Log in to the edu website
+    """
     try:
         driver.get("https://edu.21-school.ru/campus")
         login_field = driver.find_element(By.NAME, "username")
@@ -40,7 +45,11 @@ def auth_edu(driver):
     except Exception as ex:
         print(ex)
 
+
 def displaying_floors(driver):
+    """
+    Unfolding the floor block
+    """
     try:
         floor2_t = driver.find_element(
             By.XPATH, '//*[@id="root"]/div[2]/div/div[2]/div[1]/div[2]'
@@ -61,7 +70,12 @@ def displaying_floors(driver):
     except Exception as ex:
         print(ex)
 
+
 def parse_each_cluster(driver):
+    """
+    Open each cluster, and parse peers from html
+    """
+
     all_peers = set()
     clusters_xpaths_dct = {
         "et": '//*[@id="root"]/div[2]/div/div[2]/div[1]/div[2]/div/div/ul/li[1]',
@@ -89,7 +103,6 @@ def parse_each_cluster(driver):
 
         print(f"\nPeers counter from all clusters {len(all_peers)} at {time.ctime()}\n")
 
-    
     except Exception as ex:
         print(ex)
 
@@ -98,8 +111,6 @@ def parse_each_cluster(driver):
 
 
 def login_and_parse_campus_map():
-
-    
     driver = create_chromedriver()
 
     auth_edu(driver)
@@ -109,15 +120,6 @@ def login_and_parse_campus_map():
     driver.close()
     driver.quit()
     return all_peers
-
-
-
-
-def time_test_parse():
-    start = time.time()
-    temp = login_and_parse_campus_map()
-    print(f"parse take {time.time() - start} seconds")
-    return temp
 
 
 if __name__ == "__main__":

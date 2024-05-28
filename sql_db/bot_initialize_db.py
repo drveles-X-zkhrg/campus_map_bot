@@ -31,7 +31,6 @@ def create_all_kzn_clusters():
 
             session.commit()
 
-        print("All clusters for KZN campus created")
     except Exception as ex:
         print(ex)
 
