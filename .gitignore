@@ -1,8 +1,12 @@
+<<<<<<< HEAD
 # Project files
 .samples/
 .DS_Store
 .vscode/
 chromedriver
+=======
+.samples/
+>>>>>>> actions
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
