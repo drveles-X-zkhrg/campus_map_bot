@@ -12,9 +12,9 @@ def update_peers(data_in_json):
     try:
         response = requests.post(
             url=url_to_redis_api,
-            json=data_in_json,  # используем json вместо data
+            json=data_in_json,  
             headers=headers,
         )
-        response.raise_for_status()  # проверка на успешность запроса
+        response.raise_for_status()  
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")
