@@ -59,6 +59,3 @@ jobs:
         run: |
           cd ./frontend/
           docker-compose down
-
-
-          
