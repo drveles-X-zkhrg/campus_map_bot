@@ -9,6 +9,8 @@ class FriendId(BaseModel):
 class ItemCreate(ItemBase):
     pass
 
+#
+
 
 class Item(ItemBase):
     id: str
