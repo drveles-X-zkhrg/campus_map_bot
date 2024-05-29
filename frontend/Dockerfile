@@ -8,7 +8,7 @@ WORKDIR /frontend
 COPY . /frontend
 
 RUN python3 -m venv venv 
-RUN source ./venv/bin/activate
+RUN . venv/bin/activate
 
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
@@ -20,4 +20,4 @@ EXPOSE 80 443
 ENV NAME World
 
 # Run bot.py when the container launches
-CMD ["python", "main.py"]
+CMD ["vevn/bin/python3", "main.py"]
