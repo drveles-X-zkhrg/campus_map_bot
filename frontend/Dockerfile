@@ -11,7 +11,7 @@ RUN python3 -m venv venv
 RUN . venv/bin/activate
 
 # Install any needed packages specified in requirements.txt
-RUN venv/bin/pip install --no-cache-dir -r requirements.txt
+RUN venv/bin/pip install --no-cache-dir -r ./frontend/requirements.txt
 
 # Make port 80 available to the world outside this container
 EXPOSE 80 443
