@@ -20,5 +20,7 @@ EXPOSE 80 443
 # Define environment variable
 ENV NAME World
 
+RUN echo "BUILD SUCCESS"
+
 # Run main.py when the container launches
 CMD ["venv/bin/python3", "main.py"]
