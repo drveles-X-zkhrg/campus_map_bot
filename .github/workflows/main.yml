@@ -44,15 +44,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      # - name: Login to Docker Hub
-      #   uses: docker/login-action@v2
-        # with:
-        #   username: ${{ secrets.DOCKER_USERNAME }}
-        #   password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build and run Docker Compose
         run: |
-          cd ./redis/
+          cd ./frontend/
           docker-compose up --build -d
 
       # - name: Run tests (if applicable)
@@ -62,5 +57,5 @@ jobs:
 
       - name: Stop and remove Docker Compose services
         run: |
-          cd ./redis/
+          cd ./frontend/
           docker-compose down
