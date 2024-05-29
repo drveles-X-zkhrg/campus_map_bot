@@ -4,21 +4,22 @@
 
 ## Отправляемые данные
 ```
-data_to_return = {
-	"peers": {
+data_to_return =
+{
+	"peers": { 
 		"s21_peer_nick": {
+			"status": "val"
+			"cluster": "val",
 			"row": "val",
 			"col": "val",
-			"cluster": "val",
 			"time": "val",
-			"status": "val"
 		},
 		"s21_peer_nick1": {
+			"status": "val"
+			"cluster": "val",
 			"row": "val",
 			"col": "val",
-			"cluster": "val",
 			"time": "val",
-			"status": "val"
 		},
 		.
 		.	
@@ -49,3 +50,11 @@ scp jenniffr@87.242.85.185:/home/jenniffr/friends_bot/cron.log ./
 6. Не удалось загрузить класстер 
 7. Не удалось распрасить данные класстера.
 8. Все класстеры пусты.
+
+
+
+
+на псевдокоде нужно чтобы создаешь поток
+создаешь лок для потока
+в потоке пушишь на ручку
+снимаешь лок
