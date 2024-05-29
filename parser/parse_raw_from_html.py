@@ -45,7 +45,7 @@ def convert_to_json(parsed_data: set[tuple]):
     """
     Convert a set of tuples to JSON.
     "peers": {
-                "s21_peer_nick": {
+                "peer_nick": {
                         "status": "val"
                         "cluster": "val",
                         "row": "val",
