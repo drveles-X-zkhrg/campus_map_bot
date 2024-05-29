@@ -1,0 +1,312 @@
+{
+    "data": {
+        "student": {
+            "getClusterPlanStudentsByClusterId": {
+                "occupiedPlaces": [
+                    {
+                        "row": "b",
+                        "number": 3,
+                        "stageGroupName": "24_04_KZN",
+                        "stageName": "Core program",
+                        "user": {
+                            "id": "18e2aec7-cecb-43ac-8a16-8a5005098362",
+                            "login": "yajirobh@student.21-school.ru",
+                            "avatarUrl": "/services/storage/download/global/ad9d2d3c-5b03-11eb-ae93-0242ac130002?path=default_avatar/noavatar.png",
+                            "__typename": "User"
+                        },
+                        "experience": {
+                            "id": "18e2aec7-cecb-43ac-8a16-8a5005098362",
+                            "value": 784,
+                            "level": {
+                                "id": 102,
+                                "range": {
+                                    "id": "102",
+                                    "levelCode": 2,
+                                    "leftBorder": 700,
+                                    "rightBorder": 999,
+                                    "__typename": "ExperienceLevelRange"
+                                },
+                                "__typename": "ExperienceLevel"
+                            },
+                            "__typename": "UserExperience"
+                        },
+                        "studentType": "EDU",
+                        "__typename": "CurrentWorkstationUser"
+                    },
+                    {
+                        "row": "o",
+                        "number": 3,
+                        "stageGroupName": "24_04_KZN",
+                        "stageName": "Core program",
+                        "user": {
+                            "id": "14b28606-6bca-42f2-80a6-3709ebd648b2",
+                            "login": "jarviori@student.21-school.ru",
+                            "avatarUrl": "/services/storage/download/global/ad9d2d3c-5b03-11eb-ae93-0242ac130002?path=default_avatar/noavatar.png",
+                            "__typename": "User"
+                        },
+                        "experience": {
+                            "id": "14b28606-6bca-42f2-80a6-3709ebd648b2",
+                            "value": 160,
+                            "level": {
+                                "id": 100,
+                                "range": {
+                                    "id": "100",
+                                    "levelCode": 0,
+                                    "leftBorder": 0,
+                                    "rightBorder": 499,
+                                    "__typename": "ExperienceLevelRange"
+                                },
+                                "__typename": "ExperienceLevel"
+                            },
+                            "__typename": "UserExperience"
+                        },
+                        "studentType": "EDU",
+                        "__typename": "CurrentWorkstationUser"
+                    },
+                    {
+                        "row": "j",
+                        "number": 2,
+                        "stageGroupName": "24_04_KZN",
+                        "stageName": "Core program",
+                        "user": {
+                            "id": "d7a69d79-e6cd-43b0-8061-aba743610bee",
+                            "login": "coriandm@student.21-school.ru",
+                            "avatarUrl": "/services/storage/download/global/ad9d2d3c-5b03-11eb-ae93-0242ac130002?path=default_avatar/noavatar.png",
+                            "__typename": "User"
+                        },
+                        "experience": {
+                            "id": "d7a69d79-e6cd-43b0-8061-aba743610bee",
+                            "value": 711,
+                            "level": {
+                                "id": 102,
+                                "range": {
+                                    "id": "102",
+                                    "levelCode": 2,
+                                    "leftBorder": 700,
+                                    "rightBorder": 999,
+                                    "__typename": "ExperienceLevelRange"
+                                },
+                                "__typename": "ExperienceLevel"
+                            },
+                            "__typename": "UserExperience"
+                        },
+                        "studentType": "EDU",
+                        "__typename": "CurrentWorkstationUser"
+                    },
+                    {
+                        "row": "n",
+                        "number": 6,
+                        "stageGroupName": "24_04_KZN",
+                        "stageName": "Core program",
+                        "user": {
+                            "id": "18b6e34c-82d8-4e7f-91fc-266957482686",
+                            "login": "hannityd@student.21-school.ru",
+                            "avatarUrl": "/services/storage/download/global/ad9d2d3c-5b03-11eb-ae93-0242ac130002?path=default_avatar/noavatar.png",
+                            "__typename": "User"
+                        },
+                        "experience": {
+                            "id": "18b6e34c-82d8-4e7f-91fc-266957482686",
+                            "value": 208,
+                            "level": {
+                                "id": 100,
+                                "range": {
+                                    "id": "100",
+                                    "levelCode": 0,
+                                    "leftBorder": 0,
+                                    "rightBorder": 499,
+                                    "__typename": "ExperienceLevelRange"
+                                },
+                                "__typename": "ExperienceLevel"
+                            },
+                            "__typename": "UserExperience"
+                        },
+                        "studentType": "EDU",
+                        "__typename": "CurrentWorkstationUser"
+                    },
+                    {
+                        "row": "c",
+                        "number": 6,
+                        "stageGroupName": "23_04_KZN",
+                        "stageName": "Core program",
+                        "user": {
+                            "id": "5cff30bc-f126-4705-a969-4ff69421eea0",
+                            "login": "frisbeet@student.21-school.ru",
+                            "avatarUrl": "/services/storage/download/global/ad9d2d3c-5b03-11eb-ae93-0242ac130002?path=default_avatar/noavatar.png",
+                            "__typename": "User"
+                        },
+                        "experience": {
+                            "id": "5cff30bc-f126-4705-a969-4ff69421eea0",
+                            "value": 7035,
+                            "level": {
+                                "id": 109,
+                                "range": {
+                                    "id": "109",
+                                    "levelCode": 9,
+                                    "leftBorder": 7000,
+                                    "rightBorder": 9699,
+                                    "__typename": "ExperienceLevelRange"
+                                },
+                                "__typename": "ExperienceLevel"
+                            },
+                            "__typename": "UserExperience"
+                        },
+                        "studentType": "EDU",
+                        "__typename": "CurrentWorkstationUser"
+                    },
+                    {
+                        "row": "j",
+                        "number": 4,
+                        "stageGroupName": "24_04_KZN",
+                        "stageName": "Core program",
+                        "user": {
+                            "id": "eae0432c-11a0-4b42-8a41-20d7f2234e93",
+                            "login": "kandicea@student.21-school.ru",
+                            "avatarUrl": "/services/storage/download/global/ad9d2d3c-5b03-11eb-ae93-0242ac130002?path=default_avatar/noavatar.png",
+                            "__typename": "User"
+                        },
+                        "experience": {
+                            "id": "eae0432c-11a0-4b42-8a41-20d7f2234e93",
+                            "value": 804,
+                            "level": {
+                                "id": 102,
+                                "range": {
+                                    "id": "102",
+                                    "levelCode": 2,
+                                    "leftBorder": 700,
+                                    "rightBorder": 999,
+                                    "__typename": "ExperienceLevelRange"
+                                },
+                                "__typename": "ExperienceLevel"
+                            },
+                            "__typename": "UserExperience"
+                        },
+                        "studentType": "EDU",
+                        "__typename": "CurrentWorkstationUser"
+                    },
+                    {
+                        "row": "g",
+                        "number": 2,
+                        "stageGroupName": "24_04_KZN",
+                        "stageName": "Core program",
+                        "user": {
+                            "id": "8e4109c4-33d3-4118-ae35-2e3da663257d",
+                            "login": "sueannel@student.21-school.ru",
+                            "avatarUrl": "/services/storage/download/global/ad9d2d3c-5b03-11eb-ae93-0242ac130002?path=default_avatar/noavatar.png",
+                            "__typename": "User"
+                        },
+                        "experience": {
+                            "id": "8e4109c4-33d3-4118-ae35-2e3da663257d",
+                            "value": 98,
+                            "level": {
+                                "id": 100,
+                                "range": {
+                                    "id": "100",
+                                    "levelCode": 0,
+                                    "leftBorder": 0,
+                                    "rightBorder": 499,
+                                    "__typename": "ExperienceLevelRange"
+                                },
+                                "__typename": "ExperienceLevel"
+                            },
+                            "__typename": "UserExperience"
+                        },
+                        "studentType": "EDU",
+                        "__typename": "CurrentWorkstationUser"
+                    },
+                    {
+                        "row": "h",
+                        "number": 5,
+                        "stageGroupName": "22_10_KZN",
+                        "stageName": "Core program",
+                        "user": {
+                            "id": "2021fe0f-c0e8-47b9-9f2b-139241374996",
+                            "login": "marlinto@student.21-school.ru",
+                            "avatarUrl": "/services/storage/download/global/ad9d2d3c-5b03-11eb-ae93-0242ac130002?path=default_avatar/noavatar.png",
+                            "__typename": "User"
+                        },
+                        "experience": {
+                            "id": "2021fe0f-c0e8-47b9-9f2b-139241374996",
+                            "value": 17234,
+                            "level": {
+                                "id": 111,
+                                "range": {
+                                    "id": "111",
+                                    "levelCode": 11,
+                                    "leftBorder": 13500,
+                                    "rightBorder": 18699,
+                                    "__typename": "ExperienceLevelRange"
+                                },
+                                "__typename": "ExperienceLevel"
+                            },
+                            "__typename": "UserExperience"
+                        },
+                        "studentType": "EDU",
+                        "__typename": "CurrentWorkstationUser"
+                    },
+                    {
+                        "row": "b",
+                        "number": 1,
+                        "stageGroupName": "24_04_KZN",
+                        "stageName": "Core program",
+                        "user": {
+                            "id": "fdadfb7f-a3a0-41fb-963e-7b9068fc0d0e",
+                            "login": "barleyhe@student.21-school.ru",
+                            "avatarUrl": "/services/storage/download/global/ad9d2d3c-5b03-11eb-ae93-0242ac130002?path=default_avatar/noavatar.png",
+                            "__typename": "User"
+                        },
+                        "experience": {
+                            "id": "fdadfb7f-a3a0-41fb-963e-7b9068fc0d0e",
+                            "value": 808,
+                            "level": {
+                                "id": 102,
+                                "range": {
+                                    "id": "102",
+                                    "levelCode": 2,
+                                    "leftBorder": 700,
+                                    "rightBorder": 999,
+                                    "__typename": "ExperienceLevelRange"
+                                },
+                                "__typename": "ExperienceLevel"
+                            },
+                            "__typename": "UserExperience"
+                        },
+                        "studentType": "EDU",
+                        "__typename": "CurrentWorkstationUser"
+                    },
+                    {
+                        "row": "h",
+                        "number": 3,
+                        "stageGroupName": "23_10_KZN",
+                        "stageName": "Core program",
+                        "user": {
+                            "id": "3b355fb3-8460-4802-8ff0-d26d8d86fd19",
+                            "login": "pizzatom@student.21-school.ru",
+                            "avatarUrl": "/services/storage/download/global/ad9d2d3c-5b03-11eb-ae93-0242ac130002?path=default_avatar/noavatar.png",
+                            "__typename": "User"
+                        },
+                        "experience": {
+                            "id": "3b355fb3-8460-4802-8ff0-d26d8d86fd19",
+                            "value": 3638,
+                            "level": {
+                                "id": 107,
+                                "range": {
+                                    "id": "107",
+                                    "levelCode": 7,
+                                    "leftBorder": 3600,
+                                    "rightBorder": 4999,
+                                    "__typename": "ExperienceLevelRange"
+                                },
+                                "__typename": "ExperienceLevel"
+                            },
+                            "__typename": "UserExperience"
+                        },
+                        "studentType": "EDU",
+                        "__typename": "CurrentWorkstationUser"
+                    }
+                ],
+                "__typename": "ClusterPlanStudents"
+            },
+            "__typename": "StudentQueries"
+        }
+    }
+}
