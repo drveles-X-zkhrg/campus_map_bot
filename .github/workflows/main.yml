@@ -24,7 +24,7 @@ jobs:
 
       - name: Build and run Docker Compose
         run: |
-          cd ../../redis
+          cd ./redis/
           docker-compose up --build -d
 
       # - name: Run tests (if applicable)
@@ -34,5 +34,5 @@ jobs:
 
       - name: Stop and remove Docker Compose services
         run: |
-          cd ../../redis
+          cd ./redis/
           docker-compose down
