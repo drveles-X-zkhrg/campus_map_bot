@@ -6,12 +6,40 @@ on:
       - vds_parse
 
 jobs:
-  build:
+  build-redis:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and run Docker Compose
+        run: |
+          cd ./redis/
+          docker-compose up --build -d
+
+      # - name: Run tests (if applicable)
+      #   run: |
+      #     # Replace this with your actual test commands
+      #     docker-compose exec <your-service-name> pytest
+
+      - name: Stop and remove Docker Compose services
+        run: |
+          cd ./redis/
+          docker-compose down
+
+
+  build-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout zkhrg repository
+        uses: actions/checkout@v4
+        with:
+          ref: zkhrg-bot
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
