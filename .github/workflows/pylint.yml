@@ -6,7 +6,6 @@ on:
       - '**'  # This will match pushes to all branches, including merges
   push:
     branches:
-      - '**'  # This will match pushes to all branches, including merges
       - develop
       - main
 
