@@ -3,12 +3,7 @@ name: Docker Compose Build and Test
 on:
   push:
     branches:
-      - main
-      - develop
-  pull_request:
-    branches:
-      - main
-      - develop
+      - vds_parse
 
 jobs:
   build:
