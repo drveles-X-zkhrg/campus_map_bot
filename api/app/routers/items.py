@@ -5,12 +5,18 @@ router = APIRouter()
 
 
 @router.post("/add_friend/")
-def add_friend():
-    pass
+def add_friend(friend_pair: schemas.FriendPairSchema):
+    return crud.create_friend_pair(friend_pair)
+
+
+@router.post("/get_friend/")
+def get_friend(pair_id: schemas.F):
+    s = crud.get_friend_pair(pair_id.peer_id)
+    print(s)
 
 
 @router.post("/delete_friend/")
-def delete_friend_friend():
+def delete_friend_friend(friend_pair: schemas.FriendPairSchema):
     pass
 
 
