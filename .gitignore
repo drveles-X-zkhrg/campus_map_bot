@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Project files
 .samples/
 .DS_Store
@@ -5,6 +6,8 @@
 chromedriver
 *.db
 
+=======
+>>>>>>> origin/zkhrg-api
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
