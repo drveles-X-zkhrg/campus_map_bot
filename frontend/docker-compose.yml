@@ -1,8 +1,0 @@
-version: '3'
-
-services:
-  bot:
-    build: .
-    ports:
-      - "80:80"
-      - "443:443"
