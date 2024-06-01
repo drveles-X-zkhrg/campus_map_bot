@@ -1,8 +1,14 @@
-import redis
+"""
+## Initialize Redis DB if no backups
+"""
+import logging
 from datetime import datetime
+import redis
 
 def initialize_redis():
-
+    """
+    ### Initialize Redis using default values
+    """
     client = redis.Redis(host="localhost", port=6379, db=0)
 
     friends_data = {"tg_id": {"peer_nick", "peer_nick"}}
@@ -21,4 +27,4 @@ def initialize_redis():
     for key, value in sessions_data.items():
         client.hset(key, value)
 
-    print("Data has been initialized in Redis")
+    logging.warning("Start data has been initialized in Redis")
