@@ -1,17 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
 # Project files
 .samples/
 .DS_Store
 .vscode/
 chromedriver
 *.db
-
-=======
->>>>>>> origin/zkhrg-api
-# Byte-compiled / optimized / DLL files
 __pycache__/
-=======
 .idea/
 
 # Created by https://www.gitignore.io/api/macos,linux,django,python,pycharm
@@ -140,10 +133,7 @@ fabric.properties
 
 # Distribution / packaging
 .Python
-<<<<<<< HEAD
-=======
 env/
->>>>>>> origin/zkhrg-bot
 build/
 develop-eggs/
 dist/
@@ -156,17 +146,11 @@ parts/
 sdist/
 var/
 wheels/
-<<<<<<< HEAD
 share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
-=======
-*.egg-info/
-.installed.cfg
-*.egg
->>>>>>> origin/zkhrg-bot
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -181,16 +165,12 @@ pip-delete-this-directory.txt
 # Unit test / coverage reports
 htmlcov/
 .tox/
-<<<<<<< HEAD
 .nox/
-=======
->>>>>>> origin/zkhrg-bot
 .coverage
 .coverage.*
 .cache
 nosetests.xml
 coverage.xml
-<<<<<<< HEAD
 *.cover
 *.py,cover
 .hypothesis/
@@ -206,7 +186,6 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-=======
 *,cover
 .hypothesis/
 
@@ -214,7 +193,6 @@ db.sqlite3-journal
 *.mo
 
 # Django stuff:
->>>>>>> origin/zkhrg-bot
 
 # Flask stuff:
 instance/
@@ -227,16 +205,12 @@ instance/
 docs/_build/
 
 # PyBuilder
-<<<<<<< HEAD
 .pybuilder/
-=======
->>>>>>> origin/zkhrg-bot
 target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
 
-<<<<<<< HEAD
 # IPython
 profile_default/
 ipython_config.py
@@ -276,18 +250,14 @@ __pypackages__/
 # Celery stuff
 celerybeat-schedule
 celerybeat.pid
-=======
 # pyenv
 .python-version
 
 # celery beat schedule file
 celerybeat-schedule
->>>>>>> origin/zkhrg-bot
-
 # SageMath parsed files
 *.sage.py
 
-<<<<<<< HEAD
 # Environments
 .env
 .venv
@@ -296,7 +266,6 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-=======
 # dotenv
 .env
 
@@ -304,7 +273,6 @@ venv.bak/
 .venv
 venv/
 ENV/
->>>>>>> origin/zkhrg-bot
 
 # Spyder project settings
 .spyderproject
@@ -316,7 +284,6 @@ ENV/
 # mkdocs documentation
 /site
 
-<<<<<<< HEAD
 # mypy
 .mypy_cache/
 .dmypy.json
@@ -337,7 +304,5 @@ cython_debug/
 #  and can be added to the global gitignore or merged into this file.  For a more nuclear
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
-=======
 # End of https://www.gitignore.io/api/macos,linux,django,python,pycharm
 
->>>>>>> origin/zkhrg-bot
