@@ -1,21 +1,29 @@
+"""
+## Logining and parse school edu site.
+"""
+
+import time
+import logging
 from dotenv import dotenv_values
 
-"""
-Gettin login and pass from .env file to edu.21-school.ru
-File format:
-    LOGIN=login
-    PASSWORD=pass
-"""
 from selenium import webdriver
+from selenium.common.exceptions import (
+    NoSuchElementException,
+    ElementNotInteractableException,
+)
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
-from parse_raw_from_html import *
-import time
+from parse_raw_from_html import parse_raw_data_from_cluster
+
+logging.basicConfig(level=logging.ERROR)
 
 
 def create_chromedriver():
+    """
+    ### Create driver for browser
+    """
     chromedriver_path = "./venv/chromedriver"
     chrome_service = Service(chromedriver_path)
     chrome_options = Options()
@@ -30,7 +38,7 @@ def create_chromedriver():
 
 def auth_edu(driver):
     """
-    Log in to the edu website
+    ### Log in to the edu website
     """
     try:
         driver.get("https://edu.21-school.ru/campus")
@@ -42,13 +50,13 @@ def auth_edu(driver):
         time.sleep(0.5)
         password_field.send_keys(Keys.ENTER)
         time.sleep(3)
-    except Exception as ex:
-        print(ex)
+    except (NoSuchElementException, ElementNotInteractableException) as ex:
+        logging.error("An error occurred while trying to display floors: %s", ex)
 
 
 def displaying_floors(driver):
     """
-    Unfolding the floor block
+    ### Unfolding the floor block
     """
     try:
         floor2_t = driver.find_element(
@@ -67,13 +75,13 @@ def displaying_floors(driver):
                 By.XPATH, '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[1]/button/div'
             ).click()
             time.sleep(1)
-    except Exception as ex:
-        print(ex)
+    except (NoSuchElementException, ElementNotInteractableException) as ex:
+        logging.error("An error occurred while trying to display floors: %s", ex)
 
 
-def parse_each_cluster(driver):
+def parse_each_cluster(driver) -> set[tuple]:
     """
-    Open each cluster, and parse peers from html
+    ### Open each cluster, and parse peers from html
     """
 
     all_peers = set()
@@ -88,7 +96,7 @@ def parse_each_cluster(driver):
     }
     try:
 
-        for cluster_name in clusters_xpaths_dct:
+        for cluster_name in clusters_xpaths_dct.items():
             print(f"start parse {cluster_name}")
             cluster_xpath = clusters_xpaths_dct[cluster_name]
             driver.find_element(By.XPATH, cluster_xpath).click()
@@ -96,21 +104,21 @@ def parse_each_cluster(driver):
             html = driver.find_element(By.TAG_NAME, "body").get_attribute("innerHTML")
             peers_from_this_cluster = parse_raw_data_from_cluster(cluster_name, html)
             if not peers_from_this_cluster:
-                print(
-                    f"\033[91m cluster {cluster_name} empty or failed load cluster data \033[0m"
+                logging.warning(
+                    "cluster %s empty or failed to load cluster data", cluster_name
                 )
             all_peers.update(peers_from_this_cluster)
 
-        print(f"\nPeers counter from all clusters {len(all_peers)} at {time.ctime()}\n")
+    except (NoSuchElementException, ElementNotInteractableException) as ex:
+        logging.error("An error occurred while parsing clusters: %s", ex)
 
-    except Exception as ex:
-        print(ex)
-
-    finally:
-        return all_peers
+    return all_peers
 
 
-def login_and_parse_campus_map():
+def login_and_parse_campus_map() -> set[tuple]:
+    """
+    ### Entery point to parse edu
+    """
     driver = create_chromedriver()
 
     auth_edu(driver)
@@ -124,4 +132,3 @@ def login_and_parse_campus_map():
 
 if __name__ == "__main__":
     login_and_parse_campus_map()
-    # time_test_parse()

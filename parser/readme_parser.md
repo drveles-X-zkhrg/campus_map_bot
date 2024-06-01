@@ -37,7 +37,7 @@ data_to_return =
 https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.60/linux64/chrome-linux64.zip
 
 
-## Parser ожидаемые проблемы.
+## Parser ожидаемые проблемы. Для покрытия тестами
 
 1. Не хватило ресурсов и программа не выполнилась за минуту.
 2. Не ответил сайт
