@@ -9,20 +9,14 @@ def add_friend(friend_pair: schemas.FriendsByTelegramID):
     return crud.create_friend_pair(friend_pair)
 
 
-# @router.post("/get_friend/")
-# def get_friend(pair_id: schemas.F):
-#     s = crud.get_friend_pair(pair_id.peer_id)
-#     print(s)
-
-
 @router.post("/delete_friend/")
 def delete_friend_friend(friend_pair: schemas.FriendsByTelegramID):
     return crud.delete_friend_pair(friend_pair)
 
 
-# @router.post("/get_friends_status/")
-# def get_friends_status():
-#     pass
+@router.post("/get_friends_status/", response_model=schemas.PeersDict)
+def get_friends_status(tg_id: schemas.TelegramID):
+    return crud.get_friends_status(tg_id)
 
 
 # @router.post("/get_peer_status/")

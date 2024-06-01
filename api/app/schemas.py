@@ -9,12 +9,16 @@ class FriendsByTelegramID(BaseModel):
 
 
 class Peer(BaseModel):
-    row: str
-    col: str
-    cluster: str
-    time: datetime
-    status: int
+    row: str = ""
+    col: str = ""
+    cluster: str = ""
+    time: datetime = datetime.now()
+    status: int = 0
+
+
+class TelegramID(BaseModel):
+    tg_id: int
 
 
 class PeersDict(BaseModel):
-    peers: Dict[str, Peer]
+    peers: Dict[str, Peer] = {"": Peer()}

@@ -10,7 +10,7 @@ def update_peers(data_in_json: dict):
     ## Sending parsed data to redis API
     """
 
-    url_to_redis_api = "https://redis_api_url"
+    url_to_redis_api = "localhost"
     headers = {"Content-Type": "application/json", "Sender": "update_peers()"}
 
     try:
