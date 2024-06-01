@@ -6,8 +6,7 @@ on:
       - '**'  # This will match pushes to all branches, including merges
   push:
     branches:
-      - develop
-      - main
+      - all-testing
 
 jobs:
   build:
