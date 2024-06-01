@@ -5,7 +5,7 @@
 ```
 "tg_id":{"peer_nick", "peer_nick"},
 
-"peers":{}
+"peers":{"peer_nick", "peer_nick"},
 
 "peer_nick":{
         "status": "val"
