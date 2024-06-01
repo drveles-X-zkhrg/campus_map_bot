@@ -1,18 +1,20 @@
 from pydantic import BaseModel
+from typing import Dict
+from datetime import datetime
 
 
-class FriendPairSchema(BaseModel):
+class FriendsByTelegramID(BaseModel):
     tg_id: int
     peer_name: str
 
 
-class F(BaseModel):
-    peer_id: str
+class Peer(BaseModel):
+    row: str
+    col: str
+    cluster: str
+    time: datetime
+    status: int
 
 
-# class Peer(BaseModel):
-#     peer_name: str
-#     status: bool
-#     time: datetime
-#     row: str
-#     col: str
+class PeersDict(BaseModel):
+    peers: Dict[str, Peer]

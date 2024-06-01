@@ -3,6 +3,7 @@ import redis
 REDIS_HOST = "localhost"
 REDIS_PORT = 6379
 REDIS_DB = 0
+PEERS_KEY = 'peers'
 
 
 def get_redis_client():
