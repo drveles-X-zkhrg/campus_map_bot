@@ -29,18 +29,15 @@ data_to_return =
 ```
 ## DOCs
 
+Хочу в парсере при установке контейнера скачивать не самый новый хром и драйвер, а один и тот же.
+
 Вебдрайвер должен лежать в `.venv/`
 
-вебдрайвер для линукс 
+Вебдрайвер для линукс 
 https://storage.googleapis.com/chrome-for-testing-public/125.0.6422.60/linux64/chrome-linux64.zip
 
-<!-- - Крона или системцтл для автозапуска парсера. -->
-crontab 
-*/1 * * * * cd /home/jenniffr/friends_bot/ && . /home/jenniffr/friends_bot/venv/bin/activate && /home/jenniffr/friends_bot/venv/bin/python3 /home/jenniffr/friends_bot/main.py >> /home/jenniffr/friends_bot/cron.log
 
-scp jenniffr@87.242.85.185:/home/jenniffr/friends_bot/cron.log ./
-
-## Parser ожидаемые проблемы.
+## Parser ожидаемые проблемы. Для покрытия тестами
 
 1. Не хватило ресурсов и программа не выполнилась за минуту.
 2. Не ответил сайт
@@ -50,11 +47,3 @@ scp jenniffr@87.242.85.185:/home/jenniffr/friends_bot/cron.log ./
 6. Не удалось загрузить класстер 
 7. Не удалось распрасить данные класстера.
 8. Все класстеры пусты.
-
-
-
-
-на псевдокоде нужно чтобы создаешь поток
-создаешь лок для потока
-в потоке пушишь на ручку
-снимаешь лок

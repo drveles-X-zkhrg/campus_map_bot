@@ -1,7 +1,11 @@
+"""
+## Sending json to DB API
+"""
+
 import requests
 
 
-def update_peers(data_in_json):
+def update_peers(data_in_json: dict):
     """
     ## Sending parsed data to redis API
     """
@@ -12,9 +16,10 @@ def update_peers(data_in_json):
     try:
         response = requests.post(
             url=url_to_redis_api,
-            json=data_in_json,  
+            json=data_in_json,
             headers=headers,
+            timeout=10,
         )
-        response.raise_for_status()  
+        response.raise_for_status()
     except requests.exceptions.RequestException as e:
         print(f"An error occurred: {e}")

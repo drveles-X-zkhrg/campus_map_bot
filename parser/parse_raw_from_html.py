@@ -1,4 +1,8 @@
-import re, json
+"""
+## Parse raw data from .html data and convert to .json
+"""
+import re
+import json
 from datetime import datetime
 
 
@@ -35,15 +39,12 @@ def parse_raw_data_from_cluster(cluster_name, cluster_data) -> set:
 
         peers.add((match.group(1), cluster_name, row_letter, row_number))
 
-    # here heed logging to log file
-    print(f"{len(peers)} peers in {cluster_name}")
-
     return peers
 
 
-def convert_to_json(parsed_data: set[tuple]):
+def convert_to_json(parsed_data: set[tuple]) -> dict[dict[dict]]:
     """
-    Convert a set of tuples to JSON.
+    ### Convert a set of tuples to JSON.
     "peers": {
                 "peer_nick": {
                         "status": "val"
@@ -53,8 +54,8 @@ def convert_to_json(parsed_data: set[tuple]):
                         "time": "val",
                 },
     """
-    # if not isinstance(parsed_data, set) or not len(parsed_data):
-    #     return None
+    if not parsed_data or not isinstance(parsed_data, set) :
+        return {}
     data_as_dict = {"peers": {}}
 
     for parsed_nick, parsed_cluster, parsed_row, parsed_col in parsed_data:
@@ -67,9 +68,7 @@ def convert_to_json(parsed_data: set[tuple]):
                 "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             }
         }
-
         data_as_dict["peers"].update(temp_peer_dict)
-
     json_parsed_data = json.dumps(data_as_dict)
 
     return json_parsed_data
