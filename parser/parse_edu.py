@@ -4,7 +4,7 @@
 
 import time
 import logging
-from dote       nv import dotenv_values
+from dotenv import dotenv_values
 
 from selenium import webdriver
 from selenium.common.exceptions import (

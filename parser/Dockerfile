@@ -18,12 +18,9 @@ RUN python3 -m venv venv
 RUN cp /usr/bin/chromedriver /parser/venv/bin/
 COPY requirements.txt /parser/requirements.txt
 RUN . /parser/venv/bin/activate && pip install --no-cache-dir -r /parser/requirements.txt
-COPY . /parser
+COPY . .
 
 ENV PYTHONUNBUFFERED=1
 ENV DISPLAY=:99
 
-
-
 CMD ["python","parser_main.py"]
-

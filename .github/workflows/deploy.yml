@@ -1,0 +1,52 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker images
+        run: |
+          docker build -t your_dockerhub_username/api:latest ./api
+          docker build -t your_dockerhub_username/frontend:latest ./frontend
+          docker build -t your_dockerhub_username/parser:latest ./parser
+          docker build -t your_dockerhub_username/redis:latest ./redis
+
+      - name: Push Docker images
+        run: |
+          docker push your_dockerhub_username/api:latest
+          docker push your_dockerhub_username/frontend:latest
+          docker push your_dockerhub_username/parser:latest
+          docker push your_dockerhub_username/redis:latest
+
+      - name: Create .env file
+        run: |
+          echo "Pulling ENV"
+        env:
+          LOGIN: ${{ secrets.LOGIN }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+
+      - name: Deploy to server
+        run: |
+          scp .env username@your_server_ip:/path/to/docker-compose/directory/.env
+          ssh username@your_server_ip 'docker-compose -f /path/to/docker-compose.yml pull && docker-compose -f /path/to/docker-compose.yml up -d'
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          DOCKER_HOST: ssh://username@your_server_ip
