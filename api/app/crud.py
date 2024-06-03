@@ -46,3 +46,14 @@ def get_friends_status(tg_id: schemas.TelegramID) -> schemas.PeersDict:
     del answer.peers[""]
 
     return answer
+
+
+def get_peer_status(peer_name: schemas.PeerName) -> schemas.PeersDict:
+    answer: schemas.PeersDict = schemas.PeersDict()
+    peer: schemas.Peer = schemas.Peer.parse_obj(
+        redis_client.hgetall(peer_name.peer_name))
+    answer.peers[peer_name.peer_name] = peer
+
+    del answer.peers[""]
+
+    return answer
