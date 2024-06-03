@@ -13,12 +13,12 @@ RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /parser
+COPY . .
 
 RUN python3 -m venv venv
-RUN cp /usr/bin/chromedriver /parser/venv/bin/
-COPY requirements.txt /parser/requirements.txt
-RUN . /parser/venv/bin/activate && pip install --no-cache-dir -r /parser/requirements.txt
-COPY . .
+RUN cp /usr/bin/chromedriver /parser/venv/
+RUN /bin/bash -c "source venv/bin/activate"
+RUN pip install --no-cache-dir -r requirements.txt
 
 ENV PYTHONUNBUFFERED=1
 ENV DISPLAY=:99

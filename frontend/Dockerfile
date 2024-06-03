@@ -11,5 +11,7 @@ EXPOSE 80 443
 
 # ENV NAME World
 
+ENV PYTHONUNBUFFERED=1
+
 RUN echo "BUILD SUCCESS"
 CMD ["venv/bin/python3", "main.py"]
