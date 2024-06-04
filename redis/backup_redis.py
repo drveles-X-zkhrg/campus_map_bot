@@ -21,7 +21,7 @@ def redis_backup():
     """
     r = create_redis_connect()
 
-    backup_dir = "/backups"
+    backup_dir = "./backups"
     os.makedirs(backup_dir, exist_ok=True)
     try:
         r.save()
