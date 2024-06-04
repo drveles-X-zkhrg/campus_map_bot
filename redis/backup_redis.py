@@ -26,7 +26,7 @@ def redis_backup():
     try:
         r.save()
         time.sleep(5)
-        redis_dump_file = "/data/dump.rdb"
+        redis_dump_file = "./dump.rdb"
         if not os.path.exists(redis_dump_file):
             raise FileNotFoundError(f"Redis dump file not found at {redis_dump_file}")
         backup_file = os.path.join(backup_dir, "redis_backup.rdb")
@@ -49,7 +49,7 @@ def redis_restore(backup_file="/backups/redis_backup.rdb"):
     try:
         r.shutdown(save=False)
         time.sleep(5)
-        redis_dump_file = "/data/dump.rdb"
+        redis_dump_file = "./dump.rdb"
         shutil.copy2(backup_file, redis_dump_file)
         r = create_redis_connect()
         logger.info("Restored Redis from backup: %s", backup_file)

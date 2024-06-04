@@ -1,4 +1,4 @@
-sudo apt install python3.10-venv unzip wget redis
+sudo apt install python3.10-venv unzip wget redis redis-server
 wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
 && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list' \
 && apt-get update \
@@ -22,3 +22,4 @@ set +a
 
 
 python3 ./parser/main.py > parser.log &
+redis-server --daemonize yes
