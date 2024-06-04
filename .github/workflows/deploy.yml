@@ -3,7 +3,7 @@ name: Auto-Deploy on server
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   build:

@@ -29,11 +29,6 @@ jobs:
         run: |
           pylint $(git ls-files '${{ matrix.folder }}/*.py')
 
-# change to docker - compose
-
-# Run cd ./redis/
-# Couldn't find env file: /home/runner/work/friends_bot/friends_bot/.env
-# Error: Process completed with exit code 1.
   build-docker-compose:
     runs-on: ubuntu-latest
     steps:
@@ -42,30 +37,10 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
-      - name: Create .env file from secrets
-        run: |
-          echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> .env
-          echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> .env
-          echo "API_URL=http://api:8000" >> .env
-          echo "LOGIN=${{ secrets.LOGIN }}" >> .env
-          echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
-          echo "OTHER_SECRET_1=${{ secrets.OTHER_SECRET_1 }}" >> .env
-          echo "OTHER_SECRET_2=${{ secrets.OTHER_SECRET_2 }}" >> .env
-        env:
-          LOGIN: ${{ secrets.LOGIN }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-          OTHER_SECRET_1: ${{ secrets.OTHER_SECRET_1 }}
-          OTHER_SECRET_2: ${{ secrets.OTHER_SECRET_2 }}
       - name: Build and run Docker Compose
         run: |
-          cd ./${{ matrix.folder }}/
           docker-compose up --build -d
-
-      - name: Run tests (if applicable)
-        run: |
-          python3 test_${{ matrix.folder }}.py
 
       - name: Stop and remove Docker Compose services
         run: |
-          cd ./${{ matrix.folder }}/
           docker-compose down

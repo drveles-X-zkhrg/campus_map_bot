@@ -31,6 +31,7 @@ services:
       - .env
     depends_on:
       - api
+      - selenium-hub
     networks:
       - my-network
     # ports:
@@ -48,6 +49,13 @@ services:
     command: sleep infinity
     networks:
       - my-network
+
+  # selenium-hub:
+  #   image: selenoid/chrome:latest
+  #   networks:
+  #     - my-network
+  #   ports:
+  #     - "4444:4444"
 
 networks:
   my-network:

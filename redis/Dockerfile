@@ -1,6 +1,6 @@
-FROM dockerhub.timeweb.cloud/library/redis:latest
+FROM redis:latest
 
-FROM dockerhub.timeweb.cloud/library/python:3.10.2
+FROM python:3.10.2
 
 WORKDIR /redis
 COPY . .

@@ -4,13 +4,13 @@ import logging
 from datetime import datetime
 from typing import List, Dict
 
-API_ADDRESS = os.getenv("API_ADDRESS", "api")
-API_PORT = os.getenv("API_PORT", ":8001" )
+API_ADDRESS = os.getenv("API_ADDRESS", "localhost")
+API_PORT = os.getenv("API_PORT", "8000" )
 
 
 def get_peer_status(peer_name: str) -> str:
     data = {"peer_name": peer_name}
-    resp = requests.post(API_ADDRESS + API_PORT +
+    resp = requests.post(API_ADDRESS + ":" + API_PORT +
                          "/get_peer_status/", json=data)
     resp = resp.json()
 

@@ -2,9 +2,10 @@
 ## Logining and parse school edu site.
 """
 
+import os
 import time
 import logging
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 
 from selenium import webdriver
 from selenium.common.exceptions import (
@@ -33,6 +34,7 @@ def create_chromedriver():
     chrome_options.add_argument("window-size=1200x1040")
 
     driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
+
     return driver
 
 
@@ -43,11 +45,12 @@ def auth_edu(driver):
     try:
         html = driver.get("https://edu.21-school.ru/campus")
         logging.info("answer: %s", html)
+        load_dotenv
         login_field = driver.find_element(By.NAME, "username")
-        login_field.send_keys(dotenv_values(".env").get("LOGIN"))
+        login_field.send_keys(os.getenv("EDU_SCHOOL_LOGIN"))
         time.sleep(0.5)
         password_field = driver.find_element(By.NAME, "password")
-        password_field.send_keys(dotenv_values(".env").get("PASSWORD"))
+        password_field.send_keys(os.getenv("EDU_SCHOOL_PASSWORD"))
         time.sleep(0.5)
         password_field.send_keys(Keys.ENTER)
         time.sleep(3)

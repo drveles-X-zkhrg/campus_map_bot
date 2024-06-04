@@ -1,9 +1,8 @@
-FROM dockerhub.timeweb.cloud/library/python:3.10.2
+FROM python:3.10.2
 
 RUN apt-get update && apt-get install -y \
+    chromium \
     chromium-driver \
-    wget \
-    gnupg \
     && rm -rf /var/lib/apt/lists/*
 
 RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
@@ -13,8 +12,8 @@ RUN wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /parser
-
 COPY . .
+
 RUN pip install --no-cache-dir -r requirements.txt
 
 RUN cp /usr/bin/chromedriver /parser/

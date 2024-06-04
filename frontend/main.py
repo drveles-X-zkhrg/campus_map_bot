@@ -3,7 +3,7 @@ import asyncio
 import logging
 import sys
 import os
-from dotenv import dotenv_values
+from dotenv import load_dotenv
 from typing import List
 from aiogram import F
 from api_calls import get_friends, add_friend, delete_friend, get_friends_status, get_peer_status
@@ -21,8 +21,7 @@ from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from states import FriendsStatesGroup
 
-
-TOKEN = os.getenv('API_TOKEN', 'NotDefined')
+TOKEN = os.getenv('BOT_API_TOKEN', 'NotDefined')
 
 dp = Dispatcher()
 
