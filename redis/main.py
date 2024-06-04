@@ -11,7 +11,7 @@ if __name__ == "__main__":
     try:
         redis_restore()
         while True:
-            time.sleep(3600)
             redis_backup()
+            time.sleep(3600)
     finally:
         pass
