@@ -1,12 +1,10 @@
-name: Deploy
+name: Auto-Deploy on server
 
 on:
   push:
     branches:
       - main
-      - develop
-      - all-testing
-      
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -38,12 +36,20 @@ jobs:
           docker push your_dockerhub_username/parser:latest
           docker push your_dockerhub_username/redis:latest
 
-      - name: Create .env file
+      - name: Create .env file from secrets
         run: |
-          echo "Pulling ENV"
+          echo "REDIS_HOST=redis" >> .env
+          echo "REDIS_PORT=6379" >> .env
+          echo "API_URL=http://api:8000" >> .env
+          echo "LOGIN=${{ secrets.LOGIN }}" >> .env
+          echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
+          echo "OTHER_SECRET_1=${{ secrets.OTHER_SECRET_1 }}" >> .env
+          echo "OTHER_SECRET_2=${{ secrets.OTHER_SECRET_2 }}" >> .env
         env:
           LOGIN: ${{ secrets.LOGIN }}
           PASSWORD: ${{ secrets.PASSWORD }}
+          OTHER_SECRET_1: ${{ secrets.OTHER_SECRET_1 }}
+          OTHER_SECRET_2: ${{ secrets.OTHER_SECRET_2 }}
 
       - name: Deploy to server
         run: |

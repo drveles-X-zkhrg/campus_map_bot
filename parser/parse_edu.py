@@ -24,7 +24,7 @@ def create_chromedriver():
     """
     ### Create driver for browser
     """
-    chromedriver_path = "./venv/chromedriver"
+    chromedriver_path = "./chromedriver"
     chrome_service = Service(chromedriver_path)
     chrome_options = Options()
     chrome_options.add_argument("--headless")

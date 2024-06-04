@@ -1,0 +1,57 @@
+name: Auto-tests to pylint, containers, test apps
+
+on:
+  push:
+    branches:
+      - all-testing
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  check-pylint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        folder: ["api", "frontend", "parser", "redis"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.10.2"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pylint
+
+      - name: Check pylint in folder ${{ matrix.folder }}/
+        run: |
+          pylint $(git ls-files '${{ matrix.folder }}/*.py')
+
+# change to docker - compose
+  build-redis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and run Docker Compose
+        run: |
+          cd ./redis/
+          docker-compose up --build -d
+
+      - name: Run tests (if applicable)
+        run: |
+          cd ./redis/tests/
+          python3 test_parser.py
+
+      - name: Stop and remove Docker Compose services
+        run: |
+          cd ./redis/
+          docker-compose down
