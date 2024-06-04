@@ -45,7 +45,7 @@ def auth_edu(driver):
     try:
         html = driver.get("https://edu.21-school.ru/campus")
         logging.info("answer: %s", html)
-        load_dotenv
+        load_dotenv()
         login_field = driver.find_element(By.NAME, "username")
         login_field.send_keys(os.getenv("EDU_SCHOOL_LOGIN"))
         time.sleep(0.5)
