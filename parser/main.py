@@ -12,14 +12,16 @@ from selenium.common.exceptions import (
     ElementNotInteractableException,
 )
 
-logging.basicConfig(level=logging.ERROR)
+logging.basicConfig(level=logging.INFO)
 
 if __name__ == "__main__":
     while True:
         try:
             temp_data = login_and_parse_campus_map()
             temp_json = convert_to_json(temp_data)
+            logging.info("All cluster parsed")
             update_peers(temp_json)
+            logging.info("All data from parser sended")
         except (NoSuchElementException, ElementNotInteractableException) as all_ex:
             logging.error("Parse failed, starting next try")
         finally:

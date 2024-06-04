@@ -1,38 +1,66 @@
 services:
   api:
+    restart: always
     build:
       context: ./api
-    ports:
-      - "8000:8000"
     env_file:
       - .env
     depends_on:
       - redis
-    restart: always
-
+    networks:
+      default:
+        ipv4_address: 172.16.1.2
+    # command: sleep infinity
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    
   frontend:
+    restart: always
     build:
       context: ./frontend
     env_file:
       - .env
     depends_on:
       - api
-    restart: always
+    networks:
+      default:
+        ipv4_address: 172.16.1.3
+    # command: sleep infinity
 
   parser:
+    restart: always
     build:
       context: ./parser
     env_file:
       - .env
     depends_on:
       - api
-    restart: always
+    networks:
+        default:
+          ipv4_address: 172.16.1.4
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
 
+
+    
   redis:
+    restart: always
     build:
       context: ./redis
     env_file:
       - .env
     volumes:
       - ./backup:/backup
-    restart: always
+    networks:
+      default:
+        ipv4_address: 172.16.1.5
+    # command: sleep infinity
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.1.0/24
+
+

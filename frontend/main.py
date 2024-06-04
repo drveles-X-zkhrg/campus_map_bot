@@ -2,6 +2,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder
 import asyncio
 import logging
 import sys
+import os
 from dotenv import dotenv_values
 from typing import List
 from aiogram import F
@@ -21,7 +22,7 @@ from aiogram.fsm.context import FSMContext
 from states import FriendsStatesGroup
 
 
-TOKEN = dotenv_values('.env').get('API_TOKEN')
+TOKEN = os.getenv('API_TOKEN', 'NotDefined')
 
 dp = Dispatcher()
 

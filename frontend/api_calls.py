@@ -1,10 +1,11 @@
+import os
 import requests
 import logging
 from datetime import datetime
 from typing import List, Dict
 
-API_ADDRESS = "http://127.0.0.1"
-API_PORT = ":8000"
+API_ADDRESS = os.getenv("API_ADDRESS", "http://127.0.0.1")
+API_PORT = os.getenv("API_PORT", ":8000" )
 
 
 def get_peer_status(peer_name: str) -> str:
