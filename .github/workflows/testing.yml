@@ -39,6 +39,7 @@ jobs:
 
       - name: Build and run Docker Compose
         run: |
+          echo "REDIS_PORT=6379" >> .env
           docker-compose up --build -d
 
       - name: Stop and remove Docker Compose services
