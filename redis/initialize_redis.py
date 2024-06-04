@@ -11,7 +11,7 @@ def initialize_redis():
     """
     client = redis.Redis(host="localhost", port=6379, db=0)
 
-    friends_data = {"tg_id": {"peer_nick", "peer_nick"}}
+    friends_data = {"tg_id": {"peer_nick1", "peer_nick2"}}
     for key, value in friends_data.items():
         client.hset(key, value)
 
