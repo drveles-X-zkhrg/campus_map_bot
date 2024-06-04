@@ -19,9 +19,9 @@ def get_friends_status(tg_id: schemas.TelegramID):
     return crud.get_friends_status(tg_id)
 
 
-# @router.post("/get_peer_status/")
-# def get_peer_status():
-#     pass
+@router.post("/get_peer_status/", response_model=schemas.PeersDict)
+def get_peer_status(peer_name: schemas.PeerName):
+    return crud.get_peer_status(peer_name)
 
 
 @router.post("/update_peers/")

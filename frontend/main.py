@@ -5,6 +5,7 @@ import sys
 from dotenv import dotenv_values
 from typing import List
 from aiogram import F
+from api_calls import get_friends, add_friend, delete_friend, get_friends_status, get_peer_status
 
 from aiogram import Bot, Dispatcher, html
 from aiogram.client.default import DefaultBotProperties
@@ -15,6 +16,9 @@ from keyboards import get_main_keyboard, get_friends_list_to_delete_keyboard, ge
 from aiogram.filters import Command
 from aiogram.methods.send_message import SendMessage
 from aiogram.methods.edit_message_text import EditMessageText
+from aiogram.filters import Command, StateFilter
+from aiogram.fsm.context import FSMContext
+from states import FriendsStatesGroup
 
 
 TOKEN = dotenv_values('.env').get('API_TOKEN')
@@ -23,74 +27,62 @@ dp = Dispatcher()
 
 
 def make_answer_list_friends(l: List[str]) -> str:
-    return 'Напиши никнейм друга. Ниже приведены люди которые уже есть в списке твоих друзей.\n'+'\n'.join(l)
+    return 'Напиши никнейм друга. Ниже приведены люди которые уже есть в списке твоих друзей. Если захочешь прекратить добавлять друзей, нажми кнопку \"🔙\"\n'+'\n'.join(l)
 
 
 @dp.message(CommandStart())
-async def start_command_handler(message: Message) -> None:
+async def start_command_handler(message: Message, state: FSMContext) -> None:
+    await state.set_state(None)
     try:
-        # s = getFriends()
-        await message.answer("Список твоих друзей эт кампус: у вас 0 друзей и 0 онайлг",
+        m = get_friends_status(message.from_user.id)
+        await message.answer(f"Сообщение для зенмныить \n{m}",
                              reply_markup=get_main_keyboard())
     except TypeError:
         await message.answer("поломка типа")
 
 
 @dp.callback_query(F.data == "act_start")
-async def start_callback_handler(callback: CallbackQuery) -> None:
+async def start_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(None)
     try:
-        # s = getFriends()
-        await callback.message.answer("Список твоих друзей эт кампус: у вас 0 друзей и 0 онайлг",
+        m = get_friends_status(callback.from_user.id)
+        await callback.message.answer(f"Сообщение для зенмныить \n{m}",
                                       reply_markup=get_main_keyboard())
     except TypeError:
         await callback.message.answer("поломка типа")
 
 
 @dp.message(Command('add'))
-async def add_friend_command_handler(message: Message) -> None:
+async def add_friend_command_handler(message: Message, state: FSMContext) -> None:
+    await state.set_state(None)
     try:
-        # s = getFriendsFromBd условно
-        s = [
-            'jenniffr',
-            'kalynkei',
-            'rachelsa',
-            'shandych'
-        ]
-        # kb = build_list_markup(s)
+        s = get_friends(message.from_user.id)
         await message.answer(make_answer_list_friends(s),
                              reply_markup=get_back_keyboard()
                              .as_markup())
+        await state.set_state(FriendsStatesGroup.add_friend)
     except TypeError:
         await message.answer("добавить поломка")
 
 
 @dp.callback_query(F.data == "act_add")
-async def add_friend_callback_handler(callback: CallbackQuery) -> None:
+async def add_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(None)
     try:
-        # s = getFriendsFromBd условно
-        s = [
-            'jenniffr',
-            'kalynkei',
-            'rachelsa',
-            'shandych'
-        ]
+        s = get_friends(callback.from_user.id)
         await callback.message.answer(make_answer_list_friends(s),
                                       reply_markup=get_back_keyboard()
                                       .as_markup())
+        await state.set_state(FriendsStatesGroup.add_friend)
     except TypeError:
         await callback.message.answer("поломка типа")
 
 
 @dp.message(Command("delete"))
-async def delete_friend_command_handler(message: Message) -> None:
+async def delete_friend_command_handler(message: Message, state: FSMContext) -> None:
+    await state.set_state(None)
     try:
-        # s = getFriendsFromBd условно
-        s = [
-            'jenniffr',
-            'kalynkei',
-            'rachelsa',
-            'shandych'
-        ]
+        s = get_friends(message.from_user.id)
         await message.answer(
             'Нажми на ник друга, которого хочешь удалить.',
             reply_markup=get_friends_list_to_delete_keyboard(s)
@@ -101,15 +93,9 @@ async def delete_friend_command_handler(message: Message) -> None:
 
 
 @dp.callback_query(F.data == "act_delete")
-async def delete_friend_callback_handler(callback: CallbackQuery) -> None:
+async def delete_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
     try:
-        # s = getFriendsFromBd условно
-        s = [
-            'jenniffr',
-            'kalynkei',
-            'rachelsa',
-            'shandych'
-        ]
+        s = get_friends(callback.from_user.id)
         await callback.message.answer(
             'Нажми на ник друга, которого хочешь удалить.',
             reply_markup=get_friends_list_to_delete_keyboard(s)
@@ -121,27 +107,35 @@ async def delete_friend_callback_handler(callback: CallbackQuery) -> None:
 
 
 @dp.callback_query(F.data.startswith("delete_"))
-async def delete_chosen_friend_callback_handler(callback: CallbackQuery):
+async def delete_chosen_friend_callback_handler(callback: CallbackQuery, state: FSMContext):
     del_person = callback.data.replace('delete_', '')
-    # delFriendFromBd(del_person) условно
-    # s = getFriendsFromBd() условно
-    # часть сверху надо выполнить синхронно
-    s = [
-        'jenniffr',
-        'kalynkei',
-        'rachelsa',
-        'shandych'
-    ]
-    s.remove(del_person)
+    delete_friend(callback.from_user.id, del_person)
+    s = get_friends(callback.from_user.id)
+    await callback.answer(
+        text=f"{del_person} удален.",
+        show_alert=True
+    )
     await callback.message.edit_text(
         "выбери кого хочешь удалить",
         reply_markup=get_friends_list_to_delete_keyboard(s)
         .as_markup()
     )
-    await callback.answer(
-        text=f"{del_person} удален.",
-        show_alert=True
-    )
+    await state.set_state(None)
+
+
+@dp.message(FriendsStatesGroup.add_friend)
+async def add_friend_commit(message: Message, state: FSMContext):
+    add_friend(message.from_user.id, message.text)
+    await state.set_state(None)
+    await add_friend_command_handler(message=message, state=state)
+
+
+@dp.message(StateFilter(None))
+async def add_friend_commit(message: Message, state: FSMContext):
+    m = get_peer_status(message.text)
+    await state.set_state(None)
+    await message.answer(f"Message\n {m}")
+    # await add_friend_command_handler(message=message, state=state)
 
 
 async def main() -> None:

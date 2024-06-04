@@ -20,5 +20,9 @@ class TelegramID(BaseModel):
     tg_id: int
 
 
+class PeerName(BaseModel):
+    peer_name: str
+
+
 class PeersDict(BaseModel):
     peers: Dict[str, Peer] = {"": Peer()}
