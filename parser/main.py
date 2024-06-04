@@ -23,7 +23,9 @@ if __name__ == "__main__":
             logging.info("All converted parsed")
             update_peers(temp_json)
             logging.info("All data from parser sended")
+            print("All data from parser sended")
         except (NoSuchElementException, ElementNotInteractableException) as all_ex:
+            print("Parse failed, starting next try.")
             logging.error("Parse failed, starting next try. ERROR: %s", all_ex)
         finally:
             continue

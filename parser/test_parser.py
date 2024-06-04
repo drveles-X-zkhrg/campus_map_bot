@@ -1,6 +1,7 @@
 """
 ## Tests for parser service
 """
+
 import logging
 from parse_edu import login_and_parse_campus_map
 from parse_raw_from_html import convert_to_json
@@ -16,5 +17,4 @@ if __name__ == "__main__":
         temp_json = convert_to_json(temp_data)
         update_peers(temp_json)
     except (NoSuchElementException, ElementNotInteractableException) as all_ex:
-        logging.error("Parse failed, starting next try")
-    
+        logging.error("Parse failed, starting next try %s", all_ex)
