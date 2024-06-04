@@ -1,6 +1,6 @@
 import redis
 
-REDIS_HOST = "localhost"
+REDIS_HOST = "redis"
 REDIS_PORT = 6379
 REDIS_DB = 0
 PEERS_KEY = 'peers'

@@ -16,18 +16,15 @@ jobs:
         folder: ["api", "frontend", "parser", "redis"]
     steps:
       - uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v3
         with:
           python-version: "3.10"
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pylint
           pip install --no-cache-dir -r ./${{ matrix.folder }}/requirements.txt
-
       - name: Check pylint in folder ${{ matrix.folder }}/
         run: |
           pylint $(git ls-files '${{ matrix.folder }}/*.py')
@@ -37,26 +34,38 @@ jobs:
 # Run cd ./redis/
 # Couldn't find env file: /home/runner/work/friends_bot/friends_bot/.env
 # Error: Process completed with exit code 1.
-  build-redis:
+  build-docker-compose:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Create .env file from secrets
+        run: |
+          echo "REDIS_HOST=${{ secrets.REDIS_HOST }}" >> .env
+          echo "REDIS_PORT=${{ secrets.REDIS_PORT }}" >> .env
+          echo "API_URL=http://api:8000" >> .env
+          echo "LOGIN=${{ secrets.LOGIN }}" >> .env
+          echo "PASSWORD=${{ secrets.PASSWORD }}" >> .env
+          echo "OTHER_SECRET_1=${{ secrets.OTHER_SECRET_1 }}" >> .env
+          echo "OTHER_SECRET_2=${{ secrets.OTHER_SECRET_2 }}" >> .env
+        env:
+          LOGIN: ${{ secrets.LOGIN }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          OTHER_SECRET_1: ${{ secrets.OTHER_SECRET_1 }}
+          OTHER_SECRET_2: ${{ secrets.OTHER_SECRET_2 }}
       - name: Build and run Docker Compose
         run: |
-          cd ./redis/
+          cd ./${{ matrix.folder }}/
           docker-compose up --build -d
 
       - name: Run tests (if applicable)
         run: |
-          cd ./redis/tests/
-          python3 test_parser.py
+          python3 test_${{ matrix.folder }}.py
 
       - name: Stop and remove Docker Compose services
         run: |
-          cd ./redis/
+          cd ./${{ matrix.folder }}/
           docker-compose down

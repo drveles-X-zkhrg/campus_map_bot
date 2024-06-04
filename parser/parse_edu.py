@@ -41,7 +41,8 @@ def auth_edu(driver):
     ### Log in to the edu website
     """
     try:
-        driver.get("https://edu.21-school.ru/campus")
+        html = driver.get("https://edu.21-school.ru/campus")
+        logging.info("answer: %s", html)
         login_field = driver.find_element(By.NAME, "username")
         login_field.send_keys(dotenv_values(".env").get("LOGIN"))
         time.sleep(0.5)
@@ -97,7 +98,6 @@ def parse_each_cluster(driver) -> set[tuple]:
     try:
 
         for cluster_name in clusters_xpaths_dct.items():
-            print(f"start parse {cluster_name}")
             cluster_xpath = clusters_xpaths_dct[cluster_name]
             driver.find_element(By.XPATH, cluster_xpath).click()
             time.sleep(4.5)
@@ -120,10 +120,13 @@ def login_and_parse_campus_map() -> set[tuple]:
     ### Entery point to parse edu
     """
     driver = create_chromedriver()
-
+    logging.info("driver created")
     auth_edu(driver)
+    logging.info("auth success")
     displaying_floors(driver)
+    logging.info("disp floors success")
     all_peers = parse_each_cluster(driver)
+    logging.info("parse clusters success")
 
     driver.close()
     driver.quit()
