@@ -44,7 +44,7 @@ def redis_restore(backup_file="/backups/redis_backup.rdb"):
     r = create_redis_connect()
     if not os.path.exists(backup_file):
         logger.error("Backup file not found: %s", backup_file)
-        return
+        return False
 
     try:
         r.shutdown(save=False)
@@ -53,7 +53,7 @@ def redis_restore(backup_file="/backups/redis_backup.rdb"):
         shutil.copy2(backup_file, redis_dump_file)
         r = create_redis_connect()
         logger.info("Restored Redis from backup: %s", backup_file)
-
+        return True
     except (redis.RedisError, IOError, FileNotFoundError) as ex:
         logger.error("An error occurred while restoring: %s", ex)
 
