@@ -1,7 +1,7 @@
 """
 ## Sending json to DB API
 """
-
+import os
 import requests
 
 
@@ -10,7 +10,9 @@ def update_peers(data_in_json: dict):
     ## Sending parsed data to redis API
     """
 
-    url_to_api = "localhost:8000"
+    API_ADDRESS = os.getenv("API_ADDRESS", "localhost")
+
+    url_to_api = f"{API_ADDRESS}:8000"
     headers = {"Content-Type": "application/json", "Sender": "update_peers()"}
 
     try:

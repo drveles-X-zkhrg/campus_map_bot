@@ -4,14 +4,14 @@ import logging
 from datetime import datetime
 from typing import List, Dict
 
-API_ADDRESS = os.getenv("API_ADDRESS", "dicksuckerapi")
+API_ADDRESS = os.getenv("API_ADDRESS", "localhost")
 API_PORT = os.getenv("API_PORT", ":8000")
 
 
 def get_peer_status(peer_name: str) -> str:
     data = {"peer_name": peer_name}
     resp = requests.post(API_ADDRESS + API_PORT +
-                         "/get_peer_status/", json=data)
+                         "/get_peer_status/", json=data, timeout=5)
     resp = resp.json()
 
     floor2 = ('et', 'si', 'ev')
@@ -44,7 +44,7 @@ def get_friends(tg_id: int) -> List[str]:
     friends: List[str] = []
     data = {"tg_id": tg_id}
     resp = requests.post(API_ADDRESS + API_PORT +
-                         "/get_friends_status/", json=data)
+                         "/get_friends_status/", json=data, timeout=2)
     resp = resp.json()
     peers = resp['peers']
     for peer in peers:
@@ -56,19 +56,19 @@ def get_friends(tg_id: int) -> List[str]:
 
 def add_friend(tg_id: int, peer_name: str) -> str:
     data = {"tg_id": tg_id, "peer_name": peer_name}
-    resp = requests.post(API_ADDRESS + API_PORT + "/add_friend/", json=data)
+    resp = requests.post(API_ADDRESS + API_PORT + "/add_friend/", json=data, timeout=2)
 
 
 def delete_friend(tg_id: int, peer_name: str) -> List:
     data = {"tg_id": tg_id, "peer_name": peer_name}
-    resp = requests.post(API_ADDRESS + API_PORT + "/delete_friend/", json=data)
+    resp = requests.post(API_ADDRESS + API_PORT + "/delete_friend/", json=data, timeout=2)
 
 
 def get_friends_status(tg_id: int) -> str:
     answer: str = ""
     data = {"tg_id": tg_id}
     resp = requests.post(API_ADDRESS + API_PORT +
-                         "/get_friends_status/", json=data)
+                         "/get_friends_status/", json=data, timeout=5)
     resp = resp.json()
     peers = resp['peers']
     online_peers_list = []

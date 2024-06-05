@@ -16,5 +16,5 @@ if __name__ == "__main__":
         temp_data = login_and_parse_campus_map()
         temp_json = convert_to_json(temp_data)
         update_peers(temp_json)
-    except (NoSuchElementException, ElementNotInteractableException) as all_ex:
+    except Exception as all_ex:
         logging.error("Parse failed, starting next try %s", all_ex)

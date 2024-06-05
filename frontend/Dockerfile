@@ -6,8 +6,6 @@ COPY . .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-# EXPOSE 80 443
-
 ENV PYTHONUNBUFFERED=1
 
 RUN echo "BUILD SUCCESS"

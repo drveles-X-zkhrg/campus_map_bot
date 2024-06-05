@@ -38,12 +38,11 @@ services:
       - .env
     depends_on:
       - api
+    expose:
+      - "8000"
     networks:
       fbnet:
         ipv4_address: 172.19.0.4
-    # ports:
-    #   - 80:80
-    #   - 433:433
 
   redis:
     restart: always
@@ -53,19 +52,13 @@ services:
       - .env
     volumes:
       - ./backup:/backup
-    # command: sleep infinity
+    expose:
+      - "6379"
     networks:
       fbnet:
         ipv4_address: 172.19.0.5
-    expose:
-      - "6379"
-
-  # selenium-hub:
-  #   image: selenoid/chrome:latest
-  #   networks:
-  #     - my-network
-  #   ports:
-  #     - "4444:4444"
+        aliases:
+          - api
 
 networks:
   fbnet:

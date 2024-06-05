@@ -55,7 +55,7 @@ def auth_edu(driver):
         time.sleep(0.5)
         password_field.send_keys(Keys.ENTER)
         time.sleep(3)
-    except (NoSuchElementException, ElementNotInteractableException) as ex:
+    except Exception as ex:
         logging.error("An error occurred while trying to display floors: %s", ex)
 
 
@@ -80,7 +80,7 @@ def displaying_floors(driver):
                 By.XPATH, '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[1]/button/div'
             ).click()
             time.sleep(1)
-    except (NoSuchElementException, ElementNotInteractableException) as ex:
+    except Exception as ex:
         logging.error("An error occurred while trying to display floors: %s", ex)
 
 
@@ -99,10 +99,9 @@ def parse_each_cluster(driver) -> set[tuple]:
         "un": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[3]',
         "va": '//*[@id="root"]/div[2]/div/div[2]/div[2]/div[2]/div/div/ul/li[4]',
     }
-    try:
 
-        for cluster_name in clusters_xpaths_dct.items():
-            cluster_xpath = clusters_xpaths_dct[cluster_name]
+    try:
+        for cluster_name, cluster_xpath in clusters_xpaths_dct.items():
             driver.find_element(By.XPATH, cluster_xpath).click()
             time.sleep(4.5)
             html = driver.find_element(By.TAG_NAME, "body").get_attribute("innerHTML")
@@ -113,10 +112,11 @@ def parse_each_cluster(driver) -> set[tuple]:
                 )
             all_peers.update(peers_from_this_cluster)
 
-    except (NoSuchElementException, ElementNotInteractableException) as ex:
+    except Exception as ex:
         logging.error("An error occurred while parsing clusters: %s", ex)
 
     return all_peers
+
 
 
 def login_and_parse_campus_map() -> set[tuple]:
