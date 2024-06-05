@@ -10,9 +10,9 @@ def update_peers(data_in_json: dict):
     ## Sending parsed data to redis API
     """
 
-    API_ADDRESS = os.getenv("API_ADDRESS", "localhost")
+    api_address = os.getenv("API_ADDRESS", "localhost")
 
-    url_to_api = f"{API_ADDRESS}:8000"
+    url_to_api = f"{api_address}:8000"
     headers = {"Content-Type": "application/json", "Sender": "update_peers()"}
 
     try:

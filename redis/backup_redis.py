@@ -53,9 +53,10 @@ def redis_restore(backup_file="/backups/redis_backup.rdb"):
         shutil.copy2(backup_file, redis_dump_file)
         r = create_redis_connect()
         logger.info("Restored Redis from backup: %s", backup_file)
-        return True
     except (redis.RedisError, IOError, FileNotFoundError) as ex:
         logger.error("An error occurred while restoring: %s", ex)
+        return False
+    return True
 
 
 if __name__ == "__main__":
