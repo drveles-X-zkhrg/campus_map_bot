@@ -31,7 +31,6 @@ services:
       - .env
     depends_on:
       - api
-      - selenium-hub
     networks:
       - my-network
     # ports:
