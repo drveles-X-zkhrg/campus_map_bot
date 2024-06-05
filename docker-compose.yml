@@ -9,8 +9,12 @@ services:
       - .env
     depends_on:
       - redis
+    expose:
+      - "8000"
+      - "6379"
     networks:
-      - my-network
+      fbnet:
+        ipv4_address: 172.19.0.2
 
   frontend:
     restart: always
@@ -20,9 +24,12 @@ services:
       - .env
     depends_on:
       - api
+    expose:
+      - "8000"
     networks:
-      - my-network
-
+      fbnet:
+        ipv4_address: 172.19.0.3
+    
   parser:
     restart: always
     build:
@@ -32,7 +39,8 @@ services:
     depends_on:
       - api
     networks:
-      - my-network
+      fbnet:
+        ipv4_address: 172.19.0.4
     # ports:
     #   - 80:80
     #   - 433:433
@@ -45,9 +53,12 @@ services:
       - .env
     volumes:
       - ./backup:/backup
-    command: sleep infinity
+    # command: sleep infinity
     networks:
-      - my-network
+      fbnet:
+        ipv4_address: 172.19.0.5
+    expose:
+      - "6379"
 
   # selenium-hub:
   #   image: selenoid/chrome:latest
@@ -57,5 +68,8 @@ services:
   #     - "4444:4444"
 
 networks:
-  my-network:
+  fbnet:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16

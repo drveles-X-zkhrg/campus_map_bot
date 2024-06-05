@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 ENV PYTHONUNBUFFERED=1
 
-CMD ["uvicorn", "app.main:app", "--host", "localhost", "--port", "8000"]
+CMD ["uvicorn", "app.main:app", "--host", "172.19.0.2", "--port", "8000"]

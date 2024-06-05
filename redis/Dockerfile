@@ -1,12 +1,12 @@
 FROM redis:latest
 
-FROM python:3.10.2
+# FROM python:3.10.2
 
-WORKDIR /redis
-COPY . .
+# WORKDIR /redis
+# COPY . .
 
-RUN pip install --no-cache-dir -r requirements.txt
+# RUN pip install --no-cache-dir -r requirements.txt
 
-ENV PYTHONUNBUFFERED=1
+# ENV PYTHONUNBUFFERED=1
 
 # CMD ["python3", "main.py"]

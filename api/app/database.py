@@ -1,6 +1,7 @@
 import redis
+import os
 
-REDIS_HOST = "redis"
+REDIS_HOST = os.getenv("REDIS_HOST", "localhost")
 REDIS_PORT = 6379
 REDIS_DB = 0
 PEERS_KEY = 'peers'
