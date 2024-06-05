@@ -102,7 +102,7 @@ def parse_each_cluster(driver) -> set[tuple]:
     try:
         for cluster_name, cluster_xpath in clusters_xpaths_dct.items():
             driver.find_element(By.XPATH, cluster_xpath).click()
-            time.sleep(6)
+            time.sleep(7)
             html = driver.find_element(By.TAG_NAME, "body").get_attribute("innerHTML")
             peers_from_this_cluster = parse_raw_data_from_cluster(cluster_name, html)
             if not peers_from_this_cluster:
@@ -110,12 +110,12 @@ def parse_each_cluster(driver) -> set[tuple]:
                     "cluster %s empty or failed to load cluster data", cluster_name
                 )
             all_peers.update(peers_from_this_cluster)
+            logging.info("cluster %s parsed", cluster_name)
 
     except (NoSuchElementException, ElementNotInteractableException) as ex:
         logging.error("An error occurred while parsing clusters: %s", ex)
 
     return all_peers
-
 
 
 def login_and_parse_campus_map() -> set[tuple]:
