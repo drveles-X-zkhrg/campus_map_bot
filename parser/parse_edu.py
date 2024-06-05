@@ -44,8 +44,7 @@ def auth_edu(driver):
     ### Log in to the edu website
     """
     try:
-        html = driver.get("https://edu.21-school.ru/campus")
-        logging.info("answer: %s", html)
+        driver.get("https://edu.21-school.ru/campus")
         load_dotenv()
         login_field = driver.find_element(By.NAME, "username")
         login_field.send_keys(os.getenv("EDU_SCHOOL_LOGIN"))
@@ -103,7 +102,7 @@ def parse_each_cluster(driver) -> set[tuple]:
     try:
         for cluster_name, cluster_xpath in clusters_xpaths_dct.items():
             driver.find_element(By.XPATH, cluster_xpath).click()
-            time.sleep(5)
+            time.sleep(6)
             html = driver.find_element(By.TAG_NAME, "body").get_attribute("innerHTML")
             peers_from_this_cluster = parse_raw_data_from_cluster(cluster_name, html)
             if not peers_from_this_cluster:
