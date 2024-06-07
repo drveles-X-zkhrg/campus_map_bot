@@ -39,15 +39,17 @@ jobs:
         echo REDIS_PORT=${{ secrets.REDIS_PORT }} >> .env
 
     - name: Deploy to server
-      uses: appleboy/ssh-action@v0.1.4
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.DEPLOY_HOST_SERVER }}
         username: ${{ secrets.DEPLOY_SERVER_USER }}
-        ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
+        password: ${{ secrets.DEPLOY_SERVER_PASSWORD }}
         script: |
+          set -e
+          echo "Deploying application..."
           mkdir -p ~/deploy
           cd ~/deploy
-          git clone git@github.com:DrVeles/friends_bot.git . -b develop
+          git clone git@github.com:DrVeles/friends_bot.git . -b develop || git pull origin develop
           cp .env ~/deploy/.env
           docker-compose down
           docker-compose up -d --build
