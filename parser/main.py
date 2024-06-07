@@ -23,6 +23,7 @@ if __name__ == "__main__":
             temp_json = convert_to_json(temp_data)
             logging.info("All raw data converted")
             update_peers(temp_json)
+            logging.warning(temp_json)
             logging.info("Post sended to API")
         except (NoSuchElementException, ElementNotInteractableException) as all_ex:
             logging.error("Parse failed, starting next try. ERROR: %s", all_ex)

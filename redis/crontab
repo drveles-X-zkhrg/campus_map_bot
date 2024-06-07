@@ -1,0 +1,1 @@
+*/1 * * * * /bin/sh /redis/backup.sh >> /var/log/cron.log 2>&1 && echo 'auto backuped'

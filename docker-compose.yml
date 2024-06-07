@@ -51,9 +51,8 @@ services:
       - .env
     volumes:
       - ../redis_backup:/backup
-    stop_signal: SIGTERM
-    stop_grace_period: 4s
-    command: ["sh", "-c", "/redis/run_and_down.sh"]
+      # - ../redis_data:/data/
+    stop_grace_period: 5s
     expose:
       - "6379"
     networks:

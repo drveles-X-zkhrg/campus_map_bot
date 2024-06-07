@@ -1,14 +1,14 @@
 #!/bin/bash
+mkdir -p /backup
 
-BACKUP_DIR=/backup
-BACKUP_NAME=redis-backup.rdb
-REDIS_CLI=/usr/local/bin/redis-cli
+rm -rf /data/dump.rdb 
 
-# Create backup directory if not exists
-mkdir -p $BACKUP_DIR
+/usr/local/bin/redis-cli bgsave
 
-# Save the current DB
-$REDIS_CLI SAVE
+rm -rf /backup/redis-backup.rdb
 
-# Copy the dump.rdb to backup directory with a timestamp
-cp /data/dump.rdb $BACKUP_DIR/$BACKUP_NAME
+cp /data/dump.rdb /backup/redis-backup.rdb
+
+while true; do
+  sleep 1000
+done 

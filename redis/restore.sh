@@ -1,11 +1,9 @@
 #!/bin/bash
 
-BACKUP_DIR=/backup
-LATEST_BACKUP=$(ls -t $BACKUP_DIR/*.rdb | head -n 1)
+cp -rf /backup/redis-backup.rdb /data/dump.rdb
 
-if [ -f "$LATEST_BACKUP" ]; then
-  cp $LATEST_BACKUP /data/dump.rdb
-fi
+echo "restore backup complete"
 
-echo "restore "$LATEST_BACKUP" complete"
-exec redis-server --appendonly yes
+echo | crontab -l ;
+
+exec redis-server
