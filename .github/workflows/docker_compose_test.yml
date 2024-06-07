@@ -1,0 +1,25 @@
+name: Auto-tests docker compose-building
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - all-testing
+
+jobs:
+  build-docker-compose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and run Docker Compose
+        run: |
+          echo "REDIS_PORT=6379" >> .env
+          docker-compose up --build -d
+
+      - name: Stop and remove Docker Compose services
+        run: |
+          docker-compose down
