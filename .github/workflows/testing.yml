@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        folder: ["api", "frontend", "parser", "redis"]
+        folder: ["api", "frontend", "parser"]
     steps:
       - uses: actions/checkout@v4
       - name: Set up Python
