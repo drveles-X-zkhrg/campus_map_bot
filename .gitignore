@@ -6,6 +6,7 @@ chromedriver
 *.db
 __pycache__/
 .idea/
+.rdb
 
 # Created by https://www.gitignore.io/api/macos,linux,django,python,pycharm
 

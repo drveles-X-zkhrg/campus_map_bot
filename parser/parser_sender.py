@@ -28,4 +28,4 @@ def update_peers(data_in_json: dict):
         response.raise_for_status()
 
     except requests.exceptions.RequestException as e:
-        logging.warning("An error occurred: %s", e)
+        logging.error("An error occurred: %s", e)

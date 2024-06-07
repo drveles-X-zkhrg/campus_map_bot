@@ -1,12 +1,10 @@
 FROM redis:latest
 
-# FROM python:3.10.2
+RUN apt-get update && apt-get install -y cron
 
-# WORKDIR /redis
-# COPY . .
+WORKDIR /redis
+COPY . .
+RUN chmod +x backup.sh restore.sh run_and_down.sh
 
-# RUN pip install --no-cache-dir -r requirements.txt
-
-# ENV PYTHONUNBUFFERED=1
-
-# CMD ["python3", "main.py"]
+# Add cron job for periodic backups (every 10 minute)
+RUN (crontab -l ; echo "*/10 * * * * /redis/backup.sh") | crontab
