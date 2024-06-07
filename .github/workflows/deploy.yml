@@ -9,11 +9,6 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # env:
-    #   DOCKER_HUB_LOGIN: ${{ secrets.DOCKER_HUB_LOGIN }}
-    #   DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
-    #   DEPLOY_HOST_SERVER: ${{ secrets.DEPLOY_HOST_SERVER }}
-    #   DEPLOY_VERSION: ${{ secrets.DEPLOY_VERSION }}
 
     steps:
     - name: Checkout code
@@ -47,8 +42,7 @@ jobs:
       uses: appleboy/ssh-action@v0.1.4
       with:
         host: ${{ secrets.DEPLOY_HOST_SERVER }}
-        # username: ${{ secrets.DEPLOY_SERVER_USER }}
-        # password: ${{ secrets.PASS }}
+        username: ${{ secrets.DEPLOY_SERVER_USER }}
         ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
         script: |
           mkdir -p ~/deploy
@@ -57,4 +51,4 @@ jobs:
           cp .env ~/deploy/.env
           docker-compose down
           docker-compose up -d --build
-          docker ps 
+          docker ps
