@@ -2,6 +2,7 @@
 # Entery point to parse service
 ## Parse and send data to DB API
 """
+
 import sys
 import logging
 from selenium.common.exceptions import (
@@ -18,9 +19,9 @@ if __name__ == "__main__":
     while True:
         try:
             temp_data = login_and_parse_campus_map()
-            logging.info("All cluster parsed: %s", temp_data)
+            logging.info("All cluster parsed")
             temp_json = convert_to_json(temp_data)
-            logging.info("All converted parsed")
+            logging.info("All raw data converted")
             update_peers(temp_json)
             logging.info("All data from parser sended")
         except (NoSuchElementException, ElementNotInteractableException) as all_ex:

@@ -12,21 +12,20 @@ redis_client = database.get_redis_client()
 
 def create_friend_pair(friend_pair: schemas.FriendsByTelegramID) -> str:
     redis_client.sadd(friend_pair.tg_id, friend_pair.peer_name)
-    return 'ok'
+    return "ok"
 
 
 def delete_friend_pair(friend_pair: schemas.FriendsByTelegramID) -> str:
     redis_client.srem(friend_pair.tg_id, friend_pair.peer_name)
-    return 'ok'
+    return "ok"
 
 
-def update_peers(peers_dict: schemas.PeersDict) -> str:
+def update_peers(peers_dict) -> str:
     try:
         redis_client.watch(database.PEERS_KEY)
         pdj = peers_dict.json()
         pdd = json.loads(pdj)
-        transactions.transa(redis_client, database.PEERS_KEY,
-                            pdd[database.PEERS_KEY])
+        transactions.transa(redis_client, database.PEERS_KEY, pdd[database.PEERS_KEY])
         return "ok"
     except redis.WatchError:
         redis_client.unwatch()
@@ -51,7 +50,8 @@ def get_friends_status(tg_id: schemas.TelegramID) -> schemas.PeersDict:
 def get_peer_status(peer_name: schemas.PeerName) -> schemas.PeersDict:
     answer: schemas.PeersDict = schemas.PeersDict()
     peer: schemas.Peer = schemas.Peer.parse_obj(
-        redis_client.hgetall(peer_name.peer_name))
+        redis_client.hgetall(peer_name.peer_name)
+    )
     answer.peers[peer_name.peer_name] = peer
 
     del answer.peers[""]

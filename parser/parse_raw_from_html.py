@@ -1,8 +1,8 @@
 """
 ## Parse raw data from .html data and convert to .json
 """
+
 import re
-import json
 from datetime import datetime
 
 
@@ -44,7 +44,7 @@ def parse_raw_data_from_cluster(cluster_name, cluster_data) -> set:
 
 def convert_to_json(parsed_data: set[tuple]) -> dict[dict[dict]]:
     """
-    ### Convert a set of tuples to JSON.
+    Convert a set of tuples to JSON.
     "peers": {
                 "peer_nick": {
                         "status": "val"
@@ -54,9 +54,11 @@ def convert_to_json(parsed_data: set[tuple]) -> dict[dict[dict]]:
                         "time": "val",
                 },
     """
-    if not parsed_data or not isinstance(parsed_data, set) :
+    if not parsed_data or not isinstance(parsed_data, set):
         return {}
+
     data_as_dict = {"peers": {}}
+    moscow_time = datetime.now().astimezone().strftime("%Y-%m-%d %H:%M:%S")
 
     for parsed_nick, parsed_cluster, parsed_row, parsed_col in parsed_data:
         temp_peer_dict = {
@@ -64,11 +66,10 @@ def convert_to_json(parsed_data: set[tuple]) -> dict[dict[dict]]:
                 "status": "1",
                 "cluster": parsed_cluster,
                 "row": parsed_row,
-                "col": parsed_col,
-                "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "col": str(parsed_col),
+                "time": moscow_time,
             }
         }
         data_as_dict["peers"].update(temp_peer_dict)
-    json_parsed_data = json.dumps(data_as_dict)
 
-    return json_parsed_data
+    return data_as_dict
