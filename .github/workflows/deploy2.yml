@@ -26,7 +26,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no ${{ vars.DEPLOY_SERVER_USER }}@${{ vars.DEPLOY_HOST_SERVER }} << 'EOF'
           cd /home/${{ vars.DEPLOY_SERVER_USER }}/deploy_campus_bot
-          docker-compose down
-          docker-compose up -d --build
+          docker compose down
+          docker compose up -d --build
         EOF
  
