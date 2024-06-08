@@ -8,5 +8,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 ENV PYTHONUNBUFFERED=1
 
-RUN echo "BUILD SUCCESS"
 CMD ["python3", "main.py"]

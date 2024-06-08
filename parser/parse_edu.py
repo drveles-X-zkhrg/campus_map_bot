@@ -102,7 +102,7 @@ def parse_each_cluster(driver) -> set[tuple]:
     try:
         for cluster_name, cluster_xpath in clusters_xpaths_dct.items():
             driver.find_element(By.XPATH, cluster_xpath).click()
-            time.sleep(7)
+            time.sleep(10)
             html = driver.find_element(By.TAG_NAME, "body").get_attribute("innerHTML")
             peers_from_this_cluster = parse_raw_data_from_cluster(cluster_name, html)
             if not peers_from_this_cluster:

@@ -36,7 +36,7 @@ services:
       - .env
     depends_on:
       - api
-    stop_grace_period: 2s
+    stop_grace_period: 1s
     expose:
       - "8000"
     networks:
@@ -50,9 +50,10 @@ services:
     env_file:
       - .env
     volumes:
-      - ../redis_backup:/backup
-      # - ../redis_data:/data/
-    stop_grace_period: 5s
+      - ../redis-data:/data
+      - ./redis/redis.conf:/redis/redis.conf
+    command: ["sh", "-c", "redis-server /redis/redis.conf"]
+    stop_grace_period: 2s
     expose:
       - "6379"
     networks:
