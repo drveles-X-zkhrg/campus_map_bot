@@ -144,11 +144,10 @@ async def add_friend_commit(message: Message, state: FSMContext):
 async def delete_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
     await state.set_state(None)
     try:
-        s = get_friends(callback.from_user.id)
+        m = get_friends_status(callback.from_user.id)
         await callback.answer()
-        await callback.message.edit_text(make_answer_list_friends(s),
-                                         reply_markup=get_back_keyboard()
-                                         .as_markup())
+        await callback.message.edit_text(f"Сообщение для зенмныить \n{m}",
+                                         reply_markup=get_main_keyboard())
         await state.set_state(FriendsStatesGroup.add_friend)
     except TypeError:
         await callback.message.edit_text("поломка типа")
