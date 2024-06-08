@@ -7,14 +7,10 @@ on:
       - all-testing
 
 jobs:
-
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
-
-      # Install ssh key
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2.3.1
         with:
@@ -24,5 +20,21 @@ jobs:
       - name: Generate auth hosts
         run: ssh-keyscan -H ${{ vars.DEPLOY_HOST_SERVER }} >> ~/.ssh/known_hosts
 
-      # Deploy
-      - run: rsync --archive --compress --progress . ${{ vars.DEPLOY_SERVER_USER }}@${{ vars.DEPLOY_HOST_SERVER }}:/home/${{ vars.DEPLOY_SERVER_USER }}/deploy_campus_bot
+      - name: Tranfer code to server 
+        run: | 
+          rsync --archive --compress --progress . ${{ vars.DEPLOY_SERVER_USER }}@${{ vars.DEPLOY_HOST_SERVER }}:/home/${{ vars.DEPLOY_SERVER_USER }}/deploy_campus_bot
+            cd /home/${{ vars.DEPLOY_SERVER_USER }}/deploy_campus_bot
+            echo BOT_API_TOKEN=${{ secrets.BOT_API_TOKEN }} >> .env
+            echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} >> .env
+            echo EDU_SCHOOL_LOGIN=${{ secrets.EDU_SCHOOL_LOGIN }} >> .env
+            echo EDU_SCHOOL_PASSWORD=${{ secrets.EDU_SCHOOL_PASSWORD }} >> .env
+    
+            echo API_ADDRESS=${{ vars.API_ADDRESS }} >> .env
+            echo API_PORT=${{ vars.API_PORT }} >> .env
+            echo REDIS_HOST=${{ vars.REDIS_HOST }} >> .env
+            echo REDIS_PORT=${{ vars.REDIS_PORT }} >> .env
+            echo REDIS_DB=${{ vars.REDIS_DB }} >> .env
+            docker compose down
+            docker compose up -d --build
+          EOF
+  

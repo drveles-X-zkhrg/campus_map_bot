@@ -28,22 +28,21 @@ jobs:
       run: |
         echo BOT_API_TOKEN=${{ secrets.BOT_API_TOKEN }} >> .env
         echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} >> .env
-        echo DOCKER_HUB_LOGIN=${{ secrets.DOCKER_HUB_LOGIN }} >> .env
-        echo DOCKER_HUB_PASSWORD=${{ secrets.DOCKER_HUB_PASSWORD }} >> .env
         echo EDU_SCHOOL_LOGIN=${{ secrets.EDU_SCHOOL_LOGIN }} >> .env
         echo EDU_SCHOOL_PASSWORD=${{ secrets.EDU_SCHOOL_PASSWORD }} >> .env
-        echo API_ADDRESS=${{ secrets.API_ADDRESS }} >> .env
-        echo API_PORT=${{ secrets.API_PORT }} >> .env
-        echo REDIS_DB=${{ secrets.REDIS_DB }} >> .env
-        echo REDIS_HOST=${{ secrets.REDIS_HOST }} >> .env
-        echo REDIS_PORT=${{ secrets.REDIS_PORT }} >> .env
+
+        echo API_ADDRESS=${{ vars.API_ADDRESS }} >> .env
+        echo API_PORT=${{ vars.API_PORT }} >> .env
+        echo REDIS_HOST=${{ vars.REDIS_HOST }} >> .env
+        echo REDIS_PORT=${{ vars.REDIS_PORT }} >> .env
+        echo REDIS_DB=${{ vars.REDIS_DB }} >> .env
 
     - name: Deploy to server
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ secrets.DEPLOY_HOST_SERVER }}
-        username: ${{ secrets.DEPLOY_SERVER_USER }}
-        password: ${{ secrets.DEPLOY_SERVER_PASSWORD }}
+        host: ${{ vars.DEPLOY_HOST_SERVER }}
+        username: ${{ vars.DEPLOY_SERVER_USER }}
+        # password: ${{ secrets.DEPLOY_SERVER_PASSWORD }}
         script: |
           set -e
           echo "Deploying application..."
