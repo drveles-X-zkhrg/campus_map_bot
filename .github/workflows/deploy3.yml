@@ -25,4 +25,4 @@ jobs:
         run: ssh-keyscan -H ${{ vars.DEPLOY_HOST_SERVER }} >> ~/.ssh/known_hosts
 
       # Deploy
-      - run: rsync --archive --compress --progress . ${{ vars.DEPLOY_SERVER_USER }}@${{ vars.DEPLOY_HOST_SERVER }}://home/${{ secrets.DEPLOY_SERVER_USER }}/deploy_campus_bot
+      - run: rsync --archive --compress --progress . ${{ vars.DEPLOY_SERVER_USER }}@${{ vars.DEPLOY_HOST_SERVER }}:/home/${{ secrets.DEPLOY_SERVER_USER }}/deploy_campus_bot
