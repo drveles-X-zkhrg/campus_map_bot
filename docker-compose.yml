@@ -27,7 +27,7 @@ services:
     networks:
       fbnet:
         ipv4_address: 172.19.0.3
-    
+
   parser:
     restart: always
     build:
@@ -52,7 +52,7 @@ services:
     volumes:
       - ../redis-data:/data
       - ./redis/redis.conf:/redis/redis.conf
-    command: ["sh", "-c", "redis-server /redis/redis.conf"]
+    command: [ "sh", "-c", "redis-server /redis/redis.conf" ]
     stop_grace_period: 2s
     expose:
       - "6379"

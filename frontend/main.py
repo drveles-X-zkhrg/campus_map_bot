@@ -70,12 +70,12 @@ async def add_friend_callback_handler(callback: CallbackQuery, state: FSMContext
     await state.set_state(None)
     try:
         s = get_friends(callback.from_user.id)
-        await callback.message.answer(make_answer_list_friends(s),
-                                      reply_markup=get_back_keyboard()
-                                      .as_markup())
+        await callback.answer(make_answer_list_friends(s),
+                              reply_markup=get_back_keyboard()
+                              .as_markup())
         await state.set_state(FriendsStatesGroup.add_friend)
     except TypeError:
-        await callback.message.answer("поломка типа")
+        await callback.answer("поломка типа")
 
 
 @dp.message(Command("delete"))
