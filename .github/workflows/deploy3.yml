@@ -7,7 +7,7 @@ on:
       - all-testing
 
 env:
-  SERVER_HOST: ${{ secrets.DEPLOY_HOST_SERVER }}
+  SERVER_HOST: "${{ secrets.DEPLOY_HOST_SERVER }}"
 
 jobs:
 
