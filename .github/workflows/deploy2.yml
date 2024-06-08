@@ -20,11 +20,11 @@ jobs:
         ssh-private-key: ${{ secrets.DEPLOY_SSH_KEY }}
 
     - name: Copy files to server
-      run: rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ${{ secrets.DEPLOY_SERVER_USER }}@${{ secrets.DEPLOY_HOST_SERVER }}:/deploy_campus_bot
+      run: rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./ ${{ vars.DEPLOY_SERVER_USER }}@${{ vars.DEPLOY_HOST_SERVER }}://home/${{ secrets.DEPLOY_SERVER_USER }}/deploy_campus_bot
 
     - name: Run Docker Compose
       run: |
-        ssh -o StrictHostKeyChecking=no ${{ secrets.DEPLOY_SERVER_USER }}@${{ secrets.DEPLOY_HOST_SERVER }} << 'EOF'
+        ssh -o StrictHostKeyChecking=no ${{ vars.DEPLOY_SERVER_USER }}@${{ vars.DEPLOY_HOST_SERVER }} << 'EOF'
           cd /deploy_campus_bot
           docker-compose down
           docker-compose up -d --build
