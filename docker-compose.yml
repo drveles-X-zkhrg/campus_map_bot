@@ -1,6 +1,6 @@
 services:
   api:
-    restart: always
+    restart: unless-stopped
     build:
       context: ./api
     env_file:
@@ -15,7 +15,7 @@ services:
         ipv4_address: 172.19.0.2
 
   frontend:
-    restart: always
+    restart: unless-stopped
     build:
       context: ./frontend
     env_file:
@@ -29,7 +29,7 @@ services:
         ipv4_address: 172.19.0.3
 
   parser:
-    restart: always
+    restart: unless-stopped
     build:
       context: ./parser
     env_file:
@@ -44,7 +44,7 @@ services:
         ipv4_address: 172.19.0.4
 
   redis:
-    restart: always
+    restart: unless-stopped
     build:
       context: ./redis
     env_file:
