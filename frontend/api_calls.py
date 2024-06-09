@@ -31,7 +31,7 @@ def get_peer_status(peer_name: str) -> str:
     logging.info(f"PEER_INFO: {peer_info}")
     cluster = peer_info.get('cluster', '')
 
-    if peer_info is None:
+    if peer_info.get('col') == '' and peer_info.get('row') == '' and peer_info.get('cluster') == '':
         peer_row = f"<code>{peer_name}</code> | <b>no data</b>"
 
     elif peer_info.get('status') == "0":
