@@ -6,11 +6,11 @@ from typing import List
 def get_main_keyboard():
     buttons = [
         [
-            InlineKeyboardButton(text="Добавить друзей",
+            InlineKeyboardButton(text="➕",
                                  callback_data="act_add"),
             InlineKeyboardButton(text="🔄",
                                  callback_data="act_refresh"),
-            InlineKeyboardButton(text="Удалить друзей",
+            InlineKeyboardButton(text="➖",
                                  callback_data="act_delete")
         ]
     ]
