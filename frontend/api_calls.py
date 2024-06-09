@@ -131,7 +131,7 @@ def pretty_peers_print(peers_list: List[str], info: Dict[str, str], is_online: i
                 f"{cluster}-{peer_info.get('row', '')}{peer_info.get('col', '')}, "\
                 f"{'Floor 2' if cluster in floor2 else 'Floor 3' if cluster in floor3 else ''}"\
                 f"</i>\n" \
-                f"{datetime.fromisoformat(peer_info.get('time', '').replace('Z', '')).strftime('%Y-%m-%d %H:%M')}\n"
+                f"{datetime.fromisoformat(peer_info.get('time', '').replace('Z', '')).replace(tzinfo=timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M')}\n"
         else:
             peer_row = f"<code>{peer}</code> | "\
                 f"<i>"\
