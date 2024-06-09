@@ -17,17 +17,11 @@ logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
 if __name__ == "__main__":
     while True:
-        try:
-            temp_data = {} 
+        try: 
             temp_json = {}
-            temp_data = login_and_parse_campus_map()
-            logging.info("All cluster parsed")
-            temp_json = convert_to_json(temp_data)
-            logging.info("len raw data: %s", len(temp_data))
-            logging.info("raw data: %s", temp_data)
+            temp_json = convert_to_json(login_and_parse_campus_map())
             logging.info("All raw data converted")
             logging.info("len json: %s", len(temp_json["peers"]))
-            logging.info("json: %s", temp_json)
             update_peers(temp_json)
             logging.info("Post sended to API")
         except (NoSuchElementException, ElementNotInteractableException) as all_ex:
