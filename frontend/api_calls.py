@@ -1,7 +1,7 @@
 import os
 import requests
 import logging
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 from typing import List, Dict
 
 API_ADDRESS = os.getenv("API_ADDRESS", "localhost")
@@ -41,7 +41,7 @@ def get_peer_status(peer_name: str) -> str:
             f"{cluster}-{peer_info.get('row', '')}{peer_info.get('col', '')}, "\
             f"{'Floor 2' if cluster in floor2 else 'Floor 3' if cluster in floor3 else ''}"\
             f"</i>\n" \
-            f"{datetime.fromisoformat(peer_info.get('time', '').replace('Z', '')).strftime('%Y-%m-%d %H:%M')}"
+            f"{datetime.fromisoformat(peer_info.get('time', '').replace('Z', '')).replace(tzinfo=timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M')}"
     else:
         peer_row = f"<code>{peer_name}</code> | "\
             f"<i>"\
