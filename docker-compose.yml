@@ -1,12 +1,17 @@
 services:
   api:
-    restart: always
+    restart: unless-stopped
     build:
       context: ./api
-    env_file:
-      - .env
     depends_on:
       - redis
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500m
     expose:
       - "8000"
       - "6379"
@@ -15,13 +20,18 @@ services:
         ipv4_address: 172.19.0.2
 
   frontend:
-    restart: always
+    restart: unless-stopped
     build:
       context: ./frontend
     env_file:
       - .env
     depends_on:
       - api
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500m
     expose:
       - "8000"
     networks:
@@ -29,7 +39,7 @@ services:
         ipv4_address: 172.19.0.3
 
   parser:
-    restart: always
+    restart: unless-stopped
     build:
       context: ./parser
     env_file:
@@ -37,6 +47,11 @@ services:
     depends_on:
       - api
     stop_grace_period: 1s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.9"
+          memory: 500m
     expose:
       - "8000"
     networks:
@@ -44,7 +59,7 @@ services:
         ipv4_address: 172.19.0.4
 
   redis:
-    restart: always
+    restart: unless-stopped
     build:
       context: ./redis
     env_file:
@@ -54,6 +69,10 @@ services:
       - ./redis/redis.conf:/redis/redis.conf
     command: [ "sh", "-c", "redis-server /redis/redis.conf" ]
     stop_grace_period: 2s
+    deploy:
+      resources:
+        limits:
+          memory: 100m
     expose:
       - "6379"
     networks:

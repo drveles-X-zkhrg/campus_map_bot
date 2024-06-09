@@ -20,6 +20,7 @@ from aiogram.methods.edit_message_text import EditMessageText
 from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from states import FriendsStatesGroup
+from datetime import timedelta, timezone, datetime
 
 TOKEN = os.getenv('BOT_API_TOKEN', 'NotDefined')
 
@@ -35,7 +36,7 @@ async def start_command_handler(message: Message, state: FSMContext) -> None:
     await state.set_state(None)
     try:
         m = get_friends_status(message.from_user.id)
-        await message.answer(f"Сообщение для зенмныить \n{m}",
+        await message.answer(f"{datetime.now(tz=timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M')}\n{m}",
                              reply_markup=get_main_keyboard())
     except TypeError:
         await message.answer("поломка типа")
@@ -83,7 +84,7 @@ async def start_callback_handler(callback: CallbackQuery, state: FSMContext) -> 
     try:
         m = get_friends_status(callback.from_user.id)
         await callback.answer()
-        await callback.message.edit_text(f"Сообщение для зенмныить \n{m}",
+        await callback.message.edit_text(f"{datetime.now(tz=timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M')}\n{m}",
                                          reply_markup=get_main_keyboard())
     except TypeError:
         await callback.message.edit_text("поломка типа")
@@ -155,7 +156,7 @@ async def delete_friend_callback_handler(callback: CallbackQuery, state: FSMCont
     try:
         m = get_friends_status(callback.from_user.id)
         await callback.answer()
-        await callback.message.edit_text(f"Сообщение для зенмныить \n{m}",
+        await callback.message.edit_text(f"{datetime.now(tz=timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M')}\n{m}",
                                          reply_markup=get_main_keyboard())
         await state.set_state(FriendsStatesGroup.add_friend)
     except TypeError:
