@@ -123,7 +123,7 @@ def pretty_peers_print(peers_list: List[str], info: Dict[str, str], is_online: i
         peer_info = info.get(peer)
         cluster = peer_info.get('cluster', '')
         if peer_info.get('col') == '' and peer_info.get('row') == '' and peer_info.get('cluster') == '':
-            peer_row = f"<code>{peer}</code> | <b>no data</b>"
+            peer_row = f"<code>{peer}</code> | <b>no data\n</b>"
         else:
             peer_row = f"<code>{peer}</code> | "\
                 f"<i>"\
