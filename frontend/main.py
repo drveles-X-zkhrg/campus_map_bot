@@ -138,9 +138,9 @@ async def delete_chosen_friend_callback_handler(callback: CallbackQuery, state: 
 
 @dp.message(FriendsStatesGroup.add_friend)
 async def add_friend_commit(message: Message, state: FSMContext):
-    add_friend(message.from_user.id, message.text)
+    add_friend(message.from_user.id, message.text.strip().lower()[:10])
     await state.set_state(None)
-    await add_friend_command_handler(message=message[:10], state=state)
+    await add_friend_command_handler(message=message, state=state)
 
 
 @dp.message(StateFilter(None))
