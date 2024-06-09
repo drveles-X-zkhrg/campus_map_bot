@@ -137,7 +137,7 @@ async def add_friend_commit(message: Message, state: FSMContext):
 async def add_friend_commit(message: Message, state: FSMContext):
     m = get_peer_status(message.text.lower().strip())
     await state.set_state(None)
-    await message.answer(f"Message\n {m}")
+    await message.answer(f"{m}")
 
 
 @dp.callback_query(F.data == "act_refresh")
