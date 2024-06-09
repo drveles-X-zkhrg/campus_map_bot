@@ -28,8 +28,9 @@ def get_peer_status(peer_name: str) -> str:
     peer_row = ""
 
     peer_info = resp.get('peers').get(peer_name)
-
+    logging.info(f"PEER_INFO: {peer_info}")
     cluster = peer_info.get('cluster', '')
+
     if peer_info is None:
         peer_row = f"<code>{peer_name}</code> | <b>no data</b>"
 

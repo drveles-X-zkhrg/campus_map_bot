@@ -41,18 +41,6 @@ async def start_command_handler(message: Message, state: FSMContext) -> None:
         await message.answer("поломка типа")
 
 
-@dp.callback_query(F.data == "act_start")
-async def start_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
-    await state.set_state(None)
-    try:
-        m = get_friends_status(callback.from_user.id)
-        await callback.answer()
-        await callback.message.edit_text(f"Сообщение для зенмныить \n{m}",
-                                         reply_markup=get_main_keyboard())
-    except TypeError:
-        await callback.message.edit_text("поломка типа")
-
-
 @dp.message(Command('add'))
 async def add_friend_command_handler(message: Message, state: FSMContext) -> None:
     await state.set_state(None)
@@ -64,20 +52,6 @@ async def add_friend_command_handler(message: Message, state: FSMContext) -> Non
         await state.set_state(FriendsStatesGroup.add_friend)
     except TypeError:
         await message.answer("добавить поломка")
-
-
-@dp.callback_query(F.data == "act_add")
-async def add_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
-    await state.set_state(None)
-    try:
-        s = get_friends(callback.from_user.id)
-        await callback.answer()
-        await callback.message.edit_text(make_answer_list_friends(s),
-                                         reply_markup=get_back_keyboard()
-                                         .as_markup())
-        await state.set_state(FriendsStatesGroup.add_friend)
-    except TypeError:
-        await callback.message.edit_text("поломка типа")
 
 
 @dp.message(Command("delete"))
@@ -92,6 +66,41 @@ async def delete_friend_command_handler(message: Message, state: FSMContext) -> 
         )
     except TypeError:
         await message.answer("поломка типа")
+
+
+@dp.message(Command('help'))
+async def help_command_handler(message: Message, state: FSMContext) -> None:
+    await state.set_state(None)
+    try:
+        await message.answer("не нажимай сюда никогда!")
+    except TypeError:
+        await message.answer("добавить поломка")
+
+
+@dp.callback_query(F.data == "act_start")
+async def start_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(None)
+    try:
+        m = get_friends_status(callback.from_user.id)
+        await callback.answer()
+        await callback.message.edit_text(f"Сообщение для зенмныить \n{m}",
+                                         reply_markup=get_main_keyboard())
+    except TypeError:
+        await callback.message.edit_text("поломка типа")
+
+
+@dp.callback_query(F.data == "act_add")
+async def add_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(None)
+    try:
+        s = get_friends(callback.from_user.id)
+        await callback.answer()
+        await callback.message.edit_text(make_answer_list_friends(s),
+                                         reply_markup=get_back_keyboard()
+                                         .as_markup())
+        await state.set_state(FriendsStatesGroup.add_friend)
+    except TypeError:
+        await callback.message.edit_text("поломка типа")
 
 
 @dp.callback_query(F.data == "act_delete")
@@ -131,15 +140,6 @@ async def add_friend_commit(message: Message, state: FSMContext):
     add_friend(message.from_user.id, message.text)
     await state.set_state(None)
     await add_friend_command_handler(message=message, state=state)
-
-
-@dp.message(Command('help'))
-async def help_command_handler(message: Message, state: FSMContext) -> None:
-    await state.set_state(None)
-    try:
-        await message.answer("не нажимай сюда никогда!")
-    except TypeError:
-        await message.answer("добавить поломка")
 
 
 @dp.message(StateFilter(None))
