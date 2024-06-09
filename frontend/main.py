@@ -28,7 +28,7 @@ dp = Dispatcher()
 
 
 def make_answer_list_friends(l: List[str]) -> str:
-    return 'Напиши кого добавить. Текущие:\n'+'\n'.join(l)
+    return 'Напиши кого добавить. Сейчас в списке:\n'+'\n'.join(l)
 
 
 @dp.message(CommandStart())
