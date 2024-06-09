@@ -156,7 +156,7 @@ async def delete_friend_callback_handler(callback: CallbackQuery, state: FSMCont
     try:
         m = get_friends_status(callback.from_user.id)
         await callback.answer()
-        await callback.message.edit_text(f"Сообщение для зенмныить \n{m}",
+        await callback.message.edit_text(f"{datetime.now(tz=timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M')}\n{m}",
                                          reply_markup=get_main_keyboard())
         await state.set_state(FriendsStatesGroup.add_friend)
     except TypeError:
