@@ -84,7 +84,7 @@ async def start_callback_handler(callback: CallbackQuery, state: FSMContext) -> 
     try:
         m = get_friends_status(callback.from_user.id)
         await callback.answer()
-        await callback.message.edit_text(f"Сообщение для зенмныить \n{m}",
+        await callback.message.edit_text(f"{datetime.now(tz=timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M')}\n{m}",
                                          reply_markup=get_main_keyboard())
     except TypeError:
         await callback.message.edit_text("поломка типа")

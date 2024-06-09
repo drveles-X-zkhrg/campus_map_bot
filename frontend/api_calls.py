@@ -124,6 +124,14 @@ def pretty_peers_print(peers_list: List[str], info: Dict[str, str], is_online: i
         cluster = peer_info.get('cluster', '')
         if peer_info.get('col') == '' and peer_info.get('row') == '' and peer_info.get('cluster') == '':
             peer_row = f"<code>{peer}</code> | <b>no data\n</b>"
+        elif is_online == 0:
+            peer_row = f"<code>{peer_name}</code> | "\
+                f"<i>"\
+                f"{fullnames.get(cluster, '')} "\
+                f"{cluster}-{peer_info.get('row', '')}{peer_info.get('col', '')}, "\
+                f"{'Floor 2' if cluster in floor2 else 'Floor 3' if cluster in floor3 else ''}"\
+                f"</i>\n" \
+                f"{datetime.fromisoformat(peer_info.get('time', '').replace('Z', '')).strftime('%Y-%m-%d %H:%M')}\n"
         else:
             peer_row = f"<code>{peer}</code> | "\
                 f"<i>"\
@@ -131,12 +139,6 @@ def pretty_peers_print(peers_list: List[str], info: Dict[str, str], is_online: i
                 f"{cluster}-{peer_info.get('row', '')}{peer_info.get('col', '')}, "\
                 f"{'Floor 2' if cluster in floor2 else 'Floor 3' if cluster in floor3 else ''}"\
                 f"</i>\n"
-            if is_online == 0:
-                # time = datetime.fromisoformat(
-                # peer_info.get('time', '').replace('Z', ''))
-                strtime = str(peer_info.get('time', 'err'))
-                peer_row += strtime
-                peer_row += '\n'
         answer += peer_row
 
     return answer
