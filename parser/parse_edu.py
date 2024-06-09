@@ -19,7 +19,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from parse_raw_from_html import parse_raw_data_from_cluster
 
-logging.basicConfig(level=logging.WARN, stream=sys.stdout)
+logging.basicConfig(level=logging.DEBUG, stream=sys.stdout)
 
 
 def create_chromedriver():
