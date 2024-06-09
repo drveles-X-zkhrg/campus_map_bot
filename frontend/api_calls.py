@@ -74,7 +74,7 @@ def get_friends_status(tg_id: int) -> str:
     online_peers_list = []
     offline_peers_list = []
     for peer in peers:
-        if peers.get(peer).get('status') == 0:
+        if peers.get(peer).get('status') == "0":
             offline_peers_list.append(peer)
         else:
             online_peers_list.append(peer)
@@ -113,7 +113,7 @@ def pretty_peers_print(peers_list: List[str], info: Dict[str, str], is_online: i
             f"{cluster}-{peer_info.get('row', '')}{peer_info.get('col', '')}, "\
             f"{'Floor 2' if cluster in floor2 else 'Floor 3' if cluster in floor3 else ''}"\
             f"</i>\n"
-        if is_online == 0:
+        if is_online == "0":
             time = datetime.fromisoformat(
                 peer_info.get('time', '').replace('Z', ''))
             strtime = time.strftime('%Y-%m-%d %H:%M')
