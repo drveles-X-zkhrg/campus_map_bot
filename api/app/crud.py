@@ -25,7 +25,8 @@ def update_peers(peers_dict) -> str:
         redis_client.watch(database.PEERS_KEY)
         pdj = peers_dict.json()
         pdd = json.loads(pdj)
-        transactions.transa(redis_client, database.PEERS_KEY, pdd[database.PEERS_KEY])
+        transactions.update_peers(
+            redis_client, database.PEERS_KEY, pdd[database.PEERS_KEY])
         return "ok"
     except redis.WatchError:
         redis_client.unwatch()

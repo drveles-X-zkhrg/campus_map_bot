@@ -41,17 +41,6 @@ async def start_command_handler(message: Message, state: FSMContext) -> None:
         await message.answer("поломка типа")
 
 
-@dp.callback_query(F.data == "act_start")
-async def start_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
-    await state.set_state(None)
-    try:
-        m = get_friends_status(callback.from_user.id)
-        await callback.message.answer(f"Сообщение для зенмныить \n{m}",
-                                      reply_markup=get_main_keyboard())
-    except TypeError:
-        await callback.message.answer("поломка типа")
-
-
 @dp.message(Command('add'))
 async def add_friend_command_handler(message: Message, state: FSMContext) -> None:
     await state.set_state(None)
@@ -63,19 +52,6 @@ async def add_friend_command_handler(message: Message, state: FSMContext) -> Non
         await state.set_state(FriendsStatesGroup.add_friend)
     except TypeError:
         await message.answer("добавить поломка")
-
-
-@dp.callback_query(F.data == "act_add")
-async def add_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
-    await state.set_state(None)
-    try:
-        s = get_friends(callback.from_user.id)
-        await callback.answer(make_answer_list_friends(s),
-                              reply_markup=get_back_keyboard()
-                              .as_markup())
-        await state.set_state(FriendsStatesGroup.add_friend)
-    except TypeError:
-        await callback.answer("поломка типа")
 
 
 @dp.message(Command("delete"))
@@ -92,16 +68,52 @@ async def delete_friend_command_handler(message: Message, state: FSMContext) -> 
         await message.answer("поломка типа")
 
 
-@dp.callback_query(F.data == "act_delete")
-async def delete_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
+@dp.message(Command('help'))
+async def help_command_handler(message: Message, state: FSMContext) -> None:
+    await state.set_state(None)
+    try:
+        await message.answer("не нажимай сюда никогда!")
+    except TypeError:
+        await message.answer("добавить поломка")
+
+
+@dp.callback_query(F.data == "act_start")
+async def start_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(None)
+    try:
+        m = get_friends_status(callback.from_user.id)
+        await callback.answer()
+        await callback.message.edit_text(f"Сообщение для зенмныить \n{m}",
+                                         reply_markup=get_main_keyboard())
+    except TypeError:
+        await callback.message.edit_text("поломка типа")
+
+
+@dp.callback_query(F.data == "act_add")
+async def add_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(None)
     try:
         s = get_friends(callback.from_user.id)
-        await callback.message.answer(
+        await callback.answer()
+        await callback.message.edit_text(make_answer_list_friends(s),
+                                         reply_markup=get_back_keyboard()
+                                         .as_markup())
+        await state.set_state(FriendsStatesGroup.add_friend)
+    except TypeError:
+        await callback.message.edit_text("поломка типа")
+
+
+@dp.callback_query(F.data == "act_delete")
+async def delete_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(None)
+    try:
+        s = get_friends(callback.from_user.id)
+        await callback.answer()
+        await callback.message.edit_text(
             'Нажми на ник друга, которого хочешь удалить.',
             reply_markup=get_friends_list_to_delete_keyboard(s)
             .as_markup()
         )
-        # тут должен быть вообще вызов апишки
     except TypeError:
         await callback.message.answer("поломка типа")
 
@@ -132,10 +144,22 @@ async def add_friend_commit(message: Message, state: FSMContext):
 
 @dp.message(StateFilter(None))
 async def add_friend_commit(message: Message, state: FSMContext):
-    m = get_peer_status(message.text)
+    m = get_peer_status(message.text.lower().strip())
     await state.set_state(None)
-    await message.answer(f"Message\n {m}")
-    # await add_friend_command_handler(message=message, state=state)
+    await message.answer(f"{m}")
+
+
+@dp.callback_query(F.data == "act_refresh")
+async def delete_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(None)
+    try:
+        m = get_friends_status(callback.from_user.id)
+        await callback.answer()
+        await callback.message.edit_text(f"Сообщение для зенмныить \n{m}",
+                                         reply_markup=get_main_keyboard())
+        await state.set_state(FriendsStatesGroup.add_friend)
+    except TypeError:
+        await callback.message.edit_text("поломка типа")
 
 
 async def main() -> None:

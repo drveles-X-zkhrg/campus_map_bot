@@ -8,6 +8,8 @@ def get_main_keyboard():
         [
             InlineKeyboardButton(text="Добавить друзей",
                                  callback_data="act_add"),
+            InlineKeyboardButton(text="🔄",
+                                 callback_data="act_refresh"),
             InlineKeyboardButton(text="Удалить друзей",
                                  callback_data="act_delete")
         ]
