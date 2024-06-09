@@ -28,14 +28,26 @@ def get_peer_status(peer_name: str) -> str:
     peer_row = ""
 
     peer_info = resp.get('peers').get(peer_name)
-    cluster = peer_info.get('cluster', '')
 
-    peer_row = f"<code>{peer_name}</code> | "\
-        f"<i>"\
-        f"{fullnames.get(cluster, '')} "\
-        f"{cluster}-{peer_info.get('row', '')}{peer_info.get('col', '')}, "\
-        f"{'Floor 2' if cluster in floor2 else 'Floor 3' if cluster in floor3 else ''}"\
-        f"</i>\n"
+    cluster = peer_info.get('cluster', '')
+    if peer_info is None:
+        peer_row = f"<code>{peer_name}</code> | <b>no data</b>"
+
+    elif peer_info.get('status') == "0":
+        peer_row = f"<code>{peer_name}</code> | <b>offline</b>\n"\
+            f"<i>"\
+            f"{fullnames.get(cluster, '')} "\
+            f"{cluster}-{peer_info.get('row', '')}{peer_info.get('col', '')}, "\
+            f"{'Floor 2' if cluster in floor2 else 'Floor 3' if cluster in floor3 else ''}"\
+            f"</i>\n" \
+            f"{datetime.fromisoformat(peer_info.get('time', '').replace('Z', '')).strftime('%Y-%m-%d %H:%M')}"
+    else:
+        peer_row = f"<code>{peer_name}</code> | "\
+            f"<i>"\
+            f"{fullnames.get(cluster, '')} "\
+            f"{cluster}-{peer_info.get('row', '')}{peer_info.get('col', '')}, "\
+            f"{'Floor 2' if cluster in floor2 else 'Floor 3' if cluster in floor3 else ''}"\
+            f"</i>\n"
 
     return peer_row
 
@@ -56,12 +68,14 @@ def get_friends(tg_id: int) -> List[str]:
 
 def add_friend(tg_id: int, peer_name: str) -> str:
     data = {"tg_id": tg_id, "peer_name": peer_name}
-    resp = requests.post(API_ADDRESS + API_PORT + "/add_friend/", json=data, timeout=2)
+    resp = requests.post(API_ADDRESS + API_PORT +
+                         "/add_friend/", json=data, timeout=2)
 
 
 def delete_friend(tg_id: int, peer_name: str) -> List:
     data = {"tg_id": tg_id, "peer_name": peer_name}
-    resp = requests.post(API_ADDRESS + API_PORT + "/delete_friend/", json=data, timeout=2)
+    resp = requests.post(API_ADDRESS + API_PORT +
+                         "/delete_friend/", json=data, timeout=2)
 
 
 def get_friends_status(tg_id: int) -> str:
@@ -113,10 +127,10 @@ def pretty_peers_print(peers_list: List[str], info: Dict[str, str], is_online: i
             f"{cluster}-{peer_info.get('row', '')}{peer_info.get('col', '')}, "\
             f"{'Floor 2' if cluster in floor2 else 'Floor 3' if cluster in floor3 else ''}"\
             f"</i>\n"
-        if is_online == "0":
-            time = datetime.fromisoformat(
-                peer_info.get('time', '').replace('Z', ''))
-            strtime = time.strftime('%Y-%m-%d %H:%M')
+        if is_online == 0:
+            # time = datetime.fromisoformat(
+            # peer_info.get('time', '').replace('Z', ''))
+            strtime = str(peer_info.get('time', 'err'))
             peer_row += strtime
             peer_row += '\n'
         answer += peer_row

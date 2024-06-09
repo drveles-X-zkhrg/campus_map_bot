@@ -133,6 +133,15 @@ async def add_friend_commit(message: Message, state: FSMContext):
     await add_friend_command_handler(message=message, state=state)
 
 
+@dp.message(Command('help'))
+async def help_command_handler(message: Message, state: FSMContext) -> None:
+    await state.set_state(None)
+    try:
+        await message.answer("не нажимай сюда никогда!")
+    except TypeError:
+        await message.answer("добавить поломка")
+
+
 @dp.message(StateFilter(None))
 async def add_friend_commit(message: Message, state: FSMContext):
     m = get_peer_status(message.text.lower().strip())
