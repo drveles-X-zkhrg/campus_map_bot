@@ -17,7 +17,7 @@ logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
 if __name__ == "__main__":
     while True:
-        try: 
+        try:
             temp_json = {}
             temp_json = convert_to_json(login_and_parse_campus_map())
             logging.info("All raw data converted")
