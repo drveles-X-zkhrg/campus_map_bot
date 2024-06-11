@@ -17,7 +17,6 @@ jobs:
 
       - name: Build and run Docker Compose
         run: |
-          cd /home/${{ vars.DEPLOY_SERVER_USER }}/deploy_campus_bot
           echo BOT_API_TOKEN=${{ secrets.BOT_API_TOKEN }} >> .env
           echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} >> .env
           echo EDU_SCHOOL_LOGIN=${{ secrets.EDU_SCHOOL_LOGIN }} >> .env
