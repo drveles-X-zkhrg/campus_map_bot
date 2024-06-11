@@ -60,7 +60,7 @@ def convert_to_json(parsed_data: set[tuple]) -> dict[dict[dict]]:
     data_as_dict = {"peers": {}}
     moscow_time = datetime.now().astimezone(timezone(timedelta(hours=3), "Moscow"))
     moscow_time = moscow_time.strftime("%Y-%m-%d %H:%M:%S")
-    
+
     for parsed_nick, parsed_cluster, parsed_row, parsed_col in parsed_data:
         temp_peer_dict = {
             parsed_nick: {
