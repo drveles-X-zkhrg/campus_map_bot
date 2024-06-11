@@ -67,7 +67,6 @@ services:
     volumes:
       - ../redis-data:/data
       - ./redis/redis.conf:/redis/redis.conf
-    command: [ "sh", "-c", "redis-server /redis/redis.conf" ]
     stop_grace_period: 2s
     deploy:
       resources:

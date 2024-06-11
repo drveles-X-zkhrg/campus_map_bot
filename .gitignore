@@ -4,7 +4,6 @@
 .vscode/
 chromedriver
 *.db
-__pycache__/
 .idea/
 .rdb
 

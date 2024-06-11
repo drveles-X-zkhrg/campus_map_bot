@@ -22,7 +22,6 @@ jobs:
           echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} >> .env
           echo EDU_SCHOOL_LOGIN=${{ secrets.EDU_SCHOOL_LOGIN }} >> .env
           echo EDU_SCHOOL_PASSWORD=${{ secrets.EDU_SCHOOL_PASSWORD }} >> .env
-  
           echo API_ADDRESS=${{ vars.API_ADDRESS }} >> .env
           echo API_PORT=${{ vars.API_PORT }} >> .env
           echo REDIS_HOST=${{ vars.REDIS_HOST }} >> .env
