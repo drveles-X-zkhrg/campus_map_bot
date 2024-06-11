@@ -1,4 +1,4 @@
-name: Auto-tests docker compose-building
+name: Auto-tests docker compose builds
 
 on:
   pull_request:
