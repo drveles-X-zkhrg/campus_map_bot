@@ -39,7 +39,7 @@ services:
         ipv4_address: 172.19.0.3
 
   parser:
-    restart: unless-stopped
+    restart: always
     build:
       context: ./parser
     env_file:
@@ -67,7 +67,6 @@ services:
     volumes:
       - ../redis-data:/data
       - ./redis/redis.conf:/redis/redis.conf
-    command: [ "sh", "-c", "redis-server /redis/redis.conf" ]
     stop_grace_period: 2s
     deploy:
       resources:

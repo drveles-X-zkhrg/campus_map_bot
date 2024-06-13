@@ -1,4 +1,4 @@
-name: Auto-tests to pylint, containers, test apps
+name: Auto-tests to Pylint
 
 on:
   push:

@@ -38,3 +38,4 @@ docker --version
 
 # Display success message
 echo "Docker has been installed successfully"
+ 

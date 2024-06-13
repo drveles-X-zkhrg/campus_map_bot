@@ -16,15 +16,12 @@ from parser_sender import update_peers
 logging.basicConfig(level=logging.INFO, stream=sys.stdout)
 
 if __name__ == "__main__":
-    while True:
-        try: 
-            temp_json = {}
-            temp_json = convert_to_json(login_and_parse_campus_map())
-            logging.info("All raw data converted")
-            logging.info("len json: %s", len(temp_json["peers"]))
-            update_peers(temp_json)
-            logging.info("Post sended to API")
-        except (NoSuchElementException, ElementNotInteractableException) as all_ex:
-            logging.error("Parse failed, starting next try. ERROR: %s", all_ex)
-        finally:
-            continue
+    try:
+        temp_json = {}
+        temp_json = convert_to_json(login_and_parse_campus_map())
+        logging.info("All raw data converted")
+        logging.info("len json: %s", len(temp_json["peers"]))
+        update_peers(temp_json)
+        logging.info("Post sended to API")
+    except (NoSuchElementException, ElementNotInteractableException) as all_ex:
+        logging.error("Parse failed, starting next try. ERROR: %s", all_ex)
