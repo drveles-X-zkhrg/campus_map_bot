@@ -39,7 +39,7 @@ services:
         ipv4_address: 172.19.0.3
 
   parser:
-    restart: unless-stopped
+    restart: always
     build:
       context: ./parser
     env_file:
