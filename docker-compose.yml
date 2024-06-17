@@ -1,0 +1,86 @@
+services:
+  api:
+    restart: unless-stopped
+    build:
+      context: ./api
+    depends_on:
+      - redis
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500m
+    expose:
+      - "8000"
+      - "6379"
+    networks:
+      fbnet:
+        ipv4_address: 172.19.0.2
+
+  frontend:
+    restart: unless-stopped
+    build:
+      context: ./frontend
+    env_file:
+      - .env
+    depends_on:
+      - api
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 500m
+    expose:
+      - "8000"
+    networks:
+      fbnet:
+        ipv4_address: 172.19.0.3
+
+  parser:
+    restart: always
+    build:
+      context: ./parser
+    env_file:
+      - .env
+    depends_on:
+      - api
+    stop_grace_period: 1s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.9"
+          memory: 500m
+    expose:
+      - "8000"
+    networks:
+      fbnet:
+        ipv4_address: 172.19.0.4
+
+  redis:
+    restart: unless-stopped
+    build:
+      context: ./redis
+    env_file:
+      - .env
+    volumes:
+      - ../redis-data:/data
+      - ./redis/redis.conf:/redis/redis.conf
+    stop_grace_period: 2s
+    deploy:
+      resources:
+        limits:
+          memory: 100m
+    expose:
+      - "6379"
+    networks:
+      fbnet:
+        ipv4_address: 172.19.0.5
+
+networks:
+  fbnet:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16

@@ -1,0 +1,33 @@
+name: Auto-tests docker compose builds
+
+on:
+  pull_request:
+    branches:
+      - develop
+      - all-testing
+
+jobs:
+  build-docker-compose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and run Docker Compose
+        run: |
+          echo BOT_API_TOKEN=${{ secrets.BOT_API_TOKEN }} >> .env
+          echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} >> .env
+          echo EDU_SCHOOL_LOGIN=${{ secrets.EDU_SCHOOL_LOGIN }} >> .env
+          echo EDU_SCHOOL_PASSWORD=${{ secrets.EDU_SCHOOL_PASSWORD }} >> .env
+          echo API_ADDRESS=${{ vars.API_ADDRESS }} >> .env
+          echo API_PORT=${{ vars.API_PORT }} >> .env
+          echo REDIS_HOST=${{ vars.REDIS_HOST }} >> .env
+          echo REDIS_PORT=${{ vars.REDIS_PORT }} >> .env
+          echo REDIS_DB=${{ vars.REDIS_DB }} >> .env
+          docker-compose up --build -d
+
+      - name: Stop and remove Docker Compose services
+        run: |
+          docker-compose down
