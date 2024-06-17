@@ -23,7 +23,7 @@ if __name__ == "__main__":
         if temp_json["peers"]:
             update_peers(temp_json)
             logging.info("Post sended to API")
-        else: 
+        else:
             logging.warning("json empty, not sended to API")
     except (NoSuchElementException, ElementNotInteractableException) as all_ex:
         logging.error("Parse failed, starting next try. ERROR: %s", all_ex)
