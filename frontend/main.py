@@ -73,13 +73,11 @@ async def delete_friend_command_handler(message: Message, state: FSMContext) -> 
 async def help_command_handler(message: Message, state: FSMContext) -> None:
     await state.set_state(None)
     try:
-        await message.answer("""
-                             Write a nickname to see where the person is. \n 
-                             /start to see friends' status. \n 
-                             /add or ➕ to add new friends to the list. \n
-                             /delete or ➖ to remove friends from the list. \n
-                             🔄 to to update statuses. 
-                             """)
+        await message.answer(f"Write a nickname to see where the person is.\n"\
+                             f"/start to see friends' status.\n"\
+                             f"/add or ➕ to add new friends to the list.\n"\
+                             f"/delete or ➖ to remove friends from the list.\n"\
+                             f"🔄 to to update statuses.")
     except TypeError:
         await message.answer("error at help_command_handler()")
 
