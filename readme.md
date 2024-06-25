@@ -36,6 +36,7 @@ Stores data about students on campus and lists of friends in an impersonal form.
 We use github actions to test the code, automatically deliver updates to the server.
  
 ## Other | Links
+
 [Try the bot](https://t.me/kzn_campus_map_bot ). Nickname example: `jenniffr` or `diamondp`.
 
 Join the [discussion](https://github.com/DrVeles/campus_map_bot/discussions )
