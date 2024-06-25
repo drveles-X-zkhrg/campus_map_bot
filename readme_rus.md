@@ -37,7 +37,7 @@ English readme [here](./readme.md).
  
 ## Other | Links
 
-<!-- [Попробовать бота](https://t.me/kzn_campus_map_bot). Пример ника: `jenniffr` -->
+[Попробовать бота](https://t.me/kzn_campus_map_bot). Пример ника: `jenniffr`
 
 Присоединяйтесь к [обсуждению](https://github.com/DrVeles/campus_map_bot/discussions).
 

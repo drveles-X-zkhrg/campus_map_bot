@@ -25,6 +25,7 @@ jobs:
       run: |
         ssh -o StrictHostKeyChecking=no ${{ vars.DEPLOY_SERVER_USER }}@${{ vars.DEPLOY_HOST_SERVER }} << 'EOF'
           cd /home/${{ vars.DEPLOY_SERVER_USER }}/deploy_campus_bot
+          rm -f .env
           echo BOT_API_TOKEN=${{ secrets.BOT_API_TOKEN }} >> .env
           echo BOT_TOKEN=${{ secrets.BOT_TOKEN }} >> .env
           echo EDU_SCHOOL_LOGIN=${{ secrets.EDU_SCHOOL_LOGIN }} >> .env
