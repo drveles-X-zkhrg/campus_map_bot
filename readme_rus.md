@@ -51,7 +51,7 @@ English readme [here](./readme.md).
 <table>
   <tr>
     <td align="center">
-      <img src="misc/presentation.gif" height="700" alt="Image 1">
+      <img src="misc/presentation.gif" height="600" alt="Image 1">
     </td>
   </tr>
   <tr>
