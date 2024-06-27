@@ -53,7 +53,7 @@ We use github actions to test the code, automatically deliver updates to the ser
 <table>
   <tr>
     <td align="center">
-      <img src="misc/presentation.gif" height="600" alt="Image 1">
+      <img src="misc/presentation.gif" height="700" alt="Image 1">
     </td>
   </tr>
   <tr>
