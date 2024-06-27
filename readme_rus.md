@@ -46,10 +46,24 @@ English readme [here](./readme.md).
   
 ## CI/CD
  Мы используем github actions для тестирования кода, автоматической доставки обновлений на сервер.
+
+## Usage example 
+<table>
+  <tr>
+    <td align="center">
+      <img src="misc/presentation.gif" height="700" alt="Image 1">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>бот в действии</p>
+    </td>
+  </tr>
+</table>
  
 ## Other | Links
 
-[Попробовать бота](https://t.me/kzn_campus_map_bot). Пример ника: `jenniffr`
+[Попробовать бота](https://t.me/kzn_campus_map_bot). Пример ника: `jenniffr` или `diamondp`
 
 Присоединяйтесь к [обсуждению](https://github.com/DrVeles/campus_map_bot/discussions).
 
