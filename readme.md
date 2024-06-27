@@ -15,10 +15,24 @@
 
 ## Project structure
 
-The project consists of microservices. Each is located in its own *docker* container. All this is managed using *docker-compose*. 
+The project consists of microservices. Each is located in its own *docker* container. All this is managed using *docker-compose*. <br>
+<table>
+  <tr>
+    <td align="center">
+      <img src="misc/containers_scheme.png" height="450" alt="Image 1">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>diagram of how containers interact with each other within the network</p>
+    </td>
+  </tr>
+</table>
+
+
 
 ### Frontend 
-The service is responsible for the operation of the bot. Responsible for receiving data from the user, sending this data to the API, and sending responses. 
+The service is responsible for the operation of the telegram-bot via REST API which is wrapped in a library for the python. Responsible for receiving data from the user, sending this data to the API, and sending responses. 
 
 ### Parser
 The service parses data from the educational platform.
