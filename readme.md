@@ -48,7 +48,21 @@ Stores data about students on campus and lists of friends in an impersonal form.
   
 ## CI/CD
 We use github actions to test the code, automatically deliver updates to the server.
- 
+
+## Usage example 
+<table>
+  <tr>
+    <td align="center">
+      <img src="misc/presentation.gif" height="700" alt="Image 1">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>bot in usage</p>
+    </td>
+  </tr>
+</table>
+
 ## Other | Links
 
 [Try the bot](https://t.me/kzn_campus_map_bot ). Nickname example: `jenniffr` or `diamondp`.
