@@ -7,4 +7,4 @@ import parse_by_api
 
 
 if __name__ == "__main__":
-    parse_by_api.parse()
+    parse_by_api.parse_clusters()

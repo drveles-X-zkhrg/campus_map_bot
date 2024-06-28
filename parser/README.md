@@ -13,60 +13,29 @@ How to authenticate your application
 3. Use the access token to send requests to the API. Place it in the Authorization header (Bearer $token) to authenticate your application
 - Take all campuses `/v1/campuses`
 - Take all clusters of KZN `7c293c9c-f28c-4b10-be29-560e4b000a34` 
-	-  Take all clusters for all campuses ?
-```
-{
-  "clusters": [
-    {
-      "id": 34734,
-      "name": "Eternity",
-      "capacity": 80,
-      "availableCapacity": 80,
-      "floor": 2
+	-  Take all clusters for all MSK timezon campuses, MSK, KZN, Белгород, Великий Новгород, Ярославль
+``` 
+clusters = {
+    "Kazan": {
+        "34734": "et",
+        "34735": "ev",
+        "34736": "ge",
+        "34737": "pr",
+          "34738": "si",
+          "34739": "un",
+          "34740": "va",
     },
-    {
-      "id": 34735,
-      "name": "Evolution",
-      "capacity": 99,
-      "availableCapacity": 99,
-      "floor": 2
+    "Moscow": {
+        "34715": "at",
+        "36799": "du",
+        "34717": "ga", 
+        "34718": "il",
+        "34719": "mi",
+        "34720": "oa",
+        "34721": "ox",
+        "34723": "su",
+        "34724": "vo",
     },
-    {
-      "id": 34736,
-      "name": "Genom",
-      "capacity": 80,
-      "availableCapacity": 54,
-      "floor": 3
-    },
-    {
-      "id": 34737,
-      "name": "Progress",
-      "capacity": 81,
-      "availableCapacity": 67,
-      "floor": 3
-    },
-    {
-      "id": 34738,
-      "name": "Singularity",
-      "capacity": 81,
-      "availableCapacity": 81,
-      "floor": 2
-    },
-    {
-      "id": 34739,
-      "name": "Universe",
-      "capacity": 99,
-      "availableCapacity": 74,
-      "floor": 3
-    },
-    {
-      "id": 34740,
-      "name": "Vault",
-      "capacity": 49,
-      "availableCapacity": 38,
-      "floor": 3
-    }
-  ]
 }
 ```
 
