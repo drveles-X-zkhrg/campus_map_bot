@@ -6,10 +6,6 @@ import logging
 from parse_edu import login_and_parse_campus_map
 from parse_raw_from_html import convert_to_json
 from parser_sender import update_peers
-from selenium.common.exceptions import (
-    NoSuchElementException,
-    ElementNotInteractableException,
-)
 
 def test_conn_parser_to_api():
     """
@@ -23,9 +19,4 @@ def test_conn_parser_to_api():
     logging.info("sended to api ?")
 
 if __name__ == "__main__":
-    try:
-        td = login_and_parse_campus_map()
-        tj = convert_to_json(td)
-        update_peers(tj)
-    except (NoSuchElementException, ElementNotInteractableException) as all_ex:
-        logging.error("Parse failed, starting next try %s", all_ex)
+    test_conn_parser_to_api()
