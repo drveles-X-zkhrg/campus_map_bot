@@ -6,8 +6,6 @@ import logging
 import os
 import requests
 
-
-
 def get_token():
     """
     ###  Auth and return token: `Bearer $token`
@@ -24,7 +22,7 @@ def get_token():
     )
 
     if request.status_code != 200:
-        logging.error("Failed to getting token!")
+        logging.error("Failed to getting token! %d Error: %s", request.status_code, request.json())
 
     token = "Bearer " + request.json().get("access_token", "")
 
