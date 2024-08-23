@@ -26,8 +26,8 @@ jobs:
           echo REDIS_HOST=${{ vars.REDIS_HOST }} >> .env
           echo REDIS_PORT=${{ vars.REDIS_PORT }} >> .env
           echo REDIS_DB=${{ vars.REDIS_DB }} >> .env
-          docker-compose up --build -d
+          docker compose up --build -d
 
       - name: Stop and remove Docker Compose services
         run: |
-          docker-compose down
+          docker compose down
