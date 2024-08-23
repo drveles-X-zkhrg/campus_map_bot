@@ -42,6 +42,31 @@ async def start_command_handler(message: Message, state: FSMContext) -> None:
         await message.answer("error at start_command_handler()")
 
 
+@dp.callback_query(F.data == "act_start")
+async def start_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(None)
+    try:
+        m = get_friends_status(callback.from_user.id)
+        await callback.answer()
+        await callback.message.edit_text(f"{datetime.now(tz=timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M')}\n{m}",
+                                         reply_markup=get_main_keyboard())
+    except TypeError:
+        await callback.message.edit_text("error at start_callback_handler()")
+
+
+@dp.callback_query(F.data == "act_refresh")
+async def delete_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
+    await state.set_state(None)
+    try:
+        m = get_friends_status(callback.from_user.id)
+        await callback.answer()
+        await callback.message.edit_text(f"{datetime.now(tz=timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M')}\n{m}",
+                                         reply_markup=get_main_keyboard())
+        await state.set_state(FriendsStatesGroup.add_friend)
+    except TypeError:
+        await callback.message.edit_text("error at delete_friend_callback_handler()")
+
+
 @dp.message(Command('add'))
 async def add_friend_command_handler(message: Message, state: FSMContext) -> None:
     await state.set_state(None)
@@ -80,18 +105,6 @@ async def help_command_handler(message: Message, state: FSMContext) -> None:
                              f"🔄 to to update statuses.")
     except TypeError:
         await message.answer("error at help_command_handler()")
-
-
-@dp.callback_query(F.data == "act_start")
-async def start_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
-    await state.set_state(None)
-    try:
-        m = get_friends_status(callback.from_user.id)
-        await callback.answer()
-        await callback.message.edit_text(f"{datetime.now(tz=timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M')}\n{m}",
-                                         reply_markup=get_main_keyboard())
-    except TypeError:
-        await callback.message.edit_text("error at start_callback_handler()")
 
 
 @dp.callback_query(F.data == "act_add")
@@ -152,19 +165,6 @@ async def add_friend_commit(message: Message, state: FSMContext):
     m = get_peer_status(message.text.lower().strip())
     await state.set_state(None)
     await message.answer(f"{m}")
-
-
-@dp.callback_query(F.data == "act_refresh")
-async def delete_friend_callback_handler(callback: CallbackQuery, state: FSMContext) -> None:
-    await state.set_state(None)
-    try:
-        m = get_friends_status(callback.from_user.id)
-        await callback.answer()
-        await callback.message.edit_text(f"{datetime.now(tz=timezone(timedelta(hours=3))).strftime('%Y-%m-%d %H:%M')}\n{m}",
-                                         reply_markup=get_main_keyboard())
-        await state.set_state(FriendsStatesGroup.add_friend)
-    except TypeError:
-        await callback.message.edit_text("error at delete_friend_callback_handler()")
 
 
 async def main() -> None:
