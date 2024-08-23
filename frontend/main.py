@@ -126,7 +126,8 @@ async def help_command_handler(message: Message, state: FSMContext) -> None:
 
 @dp.callback_query(F.data == "act_add")
 async def add_friend_callback_handler(
-    callback: CallbackQuery, state: FSMContext
+    callback: CallbackQuery,
+    state: FSMContext,
 ) -> None:
     await state.set_state(None)
     try:
