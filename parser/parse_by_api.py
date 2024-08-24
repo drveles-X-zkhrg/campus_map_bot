@@ -3,8 +3,8 @@
 """
 
 import logging
-import requests
 from datetime import datetime, timedelta, timezone
+import requests
 import get_auth_token
 
 
@@ -21,29 +21,21 @@ def parse_clusters():
         "34739": "un",
         "34740": "va",
     }
-    all_peers = {"peers":{}}
+    all_peers = {"peers": {}}
 
     token = get_auth_token.get_token()
+    url_endpoint = "https://edu-api.21-school.ru/services/21-school/api/v1/clusters/"
+
     for cluster_id, cluster_name in kzn_clusters.items():
         request = requests.get(
-            url=f"https://edu-api.21-school.ru/services/21-school/api/v1/clusters/{cluster_id}/map?limit=101&offset=0&occupied=true",
+            url=f"{url_endpoint}{cluster_id}/map",
+            params={"limit":"101", "offset":"0", "occupied": "true"},
             headers={"accept": "application/json", "Authorization": token},
             timeout=5,
         )
         if request.status_code > 200:
             logging.error("Failed parse cluster %s", cluster_name)
         else:
-            """
-            Convert a set of tuples to JSON.
-            "peers": {
-                        "peer_nick": {
-                                "status": "val"
-                                "cluster": "val",
-                                "row": "val",
-                                "col": "val",
-                                "time": "val",
-                        },
-            """
             moscow_time = datetime.now().astimezone(
                 timezone(timedelta(hours=3), "Moscow")
             )
