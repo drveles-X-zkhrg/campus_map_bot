@@ -2,7 +2,7 @@
 # Campus map bot
 
 **Stack:** `Python`, `Redis`, `Docker`, `CI/CD`, `Linux` <br>
-**Libraries:** `FastAPI`, `aiogram`, `asyncio`, `requests`, `selenium`, `logging`, `pydantic`, `re`
+**Libraries:** `FastAPI`, `aiogram`, `asyncio`, `requests`, `logging`, `pydantic`, `re`
 
 ⚡ With this bot, you can find out if a student is on campus and what workplace he is at.
 
@@ -22,7 +22,7 @@ The service is responsible for the operation of the bot. Responsible for receivi
 
 ### Parser
 The service parses data from the educational platform.
-Automatic authorization is configured, bypassing the campus map and saving data as html pages. Using regular expressions, we get the students' location data and send it to the API in the form of *json*. 
+We log in to the platform and using the API of the School, we get the location data of the students and send it to our API in the form of *json*. 
   
 ### API
 It serves as a link between all services:

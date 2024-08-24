@@ -50,7 +50,6 @@ def parse_clusters():
             moscow_time = moscow_time.strftime("%Y-%m-%d %H:%M:%S")
 
             for raw_peer in request.json()["clusterMap"]:
-                # {'row': 'd', 'number': 5, 'login': 'zekemath@student.21-school.ru'}
                 clear_peer_data = {
                     "status": "1",
                     "cluster": cluster_name,
