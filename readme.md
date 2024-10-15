@@ -2,7 +2,7 @@
 # Campus map bot
 
 **Stack:** `Python`, `Redis`, `Docker`, `CI/CD`, `Linux` <br>
-**Libraries:** `FastAPI`, `aiogram`, `asyncio`, `requests`, `logging`, `pydantic`, `re`
+**Libraries:** `FastAPI`, `aiogram`, `asyncio`, `requests`, `logging`, `pydantic`
 
 ⚡ With this bot, you can find out if a student is on campus and what workplace he is at.
 
