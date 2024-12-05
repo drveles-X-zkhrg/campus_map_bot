@@ -93,7 +93,6 @@ cmake-build-debug/
 *.iws
 
 ## Plugin-specific files:
-
 # IntelliJ
 /out/
 
