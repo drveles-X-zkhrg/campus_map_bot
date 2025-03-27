@@ -14,7 +14,6 @@ def update_peers(data_in_json: dict):
 
     api_address = os.getenv("API_ADDRESS", "localhost")
     api_port = os.getenv("API_PORT", ":8000")
-
     url_to_api = f"{api_address}{api_port}/update_peers/"
     headers = {"Content-Type": "application/json", "Sender": "update_peers()"}
 
