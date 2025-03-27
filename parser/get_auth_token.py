@@ -28,5 +28,4 @@ def get_token():
         )
 
     token = "Bearer " + request.json().get("access_token", "")
-
     return token
