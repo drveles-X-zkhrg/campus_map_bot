@@ -2,7 +2,7 @@
 # Campus map bot
 
 **Stack:** `Python`, `Redis`, `Docker`, `CI/CD`, `Linux` <br>
-**Libraries:** `FastAPI`, `aiogram`, `asyncio`, `requests`, `logging`, `pydantic`, `re`
+**Libraries:** `FastAPI`, `aiogram`, `asyncio`, `requests`, `logging`, `pydantic`
 
 ⚡ With this bot, you can find out if a student is on campus and what workplace he is at.
 
@@ -15,10 +15,24 @@
 
 ## Project structure
 
-The project consists of microservices. Each is located in its own *docker* container. All this is managed using *docker-compose*. 
+The project consists of microservices. Each is located in its own *docker* container. All this is managed using *docker-compose*. <br>
+<table>
+  <tr>
+    <td align="center">
+      <img src="misc/containers_scheme.png" height="450" alt="Image 1">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>diagram of how containers interact with each other within the network</p>
+    </td>
+  </tr>
+</table>
+
+
 
 ### Frontend 
-The service is responsible for the operation of the bot. Responsible for receiving data from the user, sending this data to the API, and sending responses. 
+The service is responsible for the operation of the telegram-bot via REST API which is wrapped in a library for the python. Responsible for receiving data from the user, sending this data to the API, and sending responses. 
 
 ### Parser
 The service parses data from the educational platform.
@@ -34,7 +48,21 @@ Stores data about students on campus and lists of friends in an impersonal form.
   
 ## CI/CD
 We use github actions to test the code, automatically deliver updates to the server.
- 
+
+## Usage example 
+<table>
+  <tr>
+    <td align="center">
+      <img src="misc/presentation.gif" height="600" alt="Image 1">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>bot in usage</p>
+    </td>
+  </tr>
+</table>
+
 ## Other | Links
 
 [Try the bot](https://t.me/kzn_campus_map_bot ). Nickname example: `jenniffr` or `diamondp`.

@@ -15,10 +15,22 @@ English readme [here](./readme.md).
 
 ## Project structure
 
-Проект состоит из микросервисов. Каждый находится в собственном *docker* контейнере. Все это управляется с помощью *docker-compose*. 
+Проект состоит из микросервисов. Каждый находится в собственном *docker* контейнере. Все это управляется с помощью *docker-compose*. <br>
+<table>
+  <tr>
+    <td align="center">
+      <img src="misc/containers_scheme.png" height="450" alt="Image 1">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>схема взаимодействия контейнеров между собой внутри сети</p>
+    </td>
+  </tr>
+</table>
 
 ### Frontend 
-Сервис отвечает за работу бота. Отвечает за прием данных от пользователя, отправку этих данных в API, рассылку ответов. 
+Сервис отвечает за работу телеграм-бота через REST API который обернуть в библиотеку для python. Отвечает за прием данных от пользователя, отправку этих данных в API, рассылку ответов. 
 
 ### Parser
 Сервис парсит данные с образовательной платформы.
@@ -34,10 +46,24 @@ English readme [here](./readme.md).
   
 ## CI/CD
  Мы используем github actions для тестирования кода, автоматической доставки обновлений на сервер.
+
+## Usage example 
+<table>
+  <tr>
+    <td align="center">
+      <img src="misc/presentation.gif" height="600" alt="Image 1">
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <p>бот в действии</p>
+    </td>
+  </tr>
+</table>
  
 ## Other | Links
 
-[Попробовать бота](https://t.me/kzn_campus_map_bot). Пример ника: `jenniffr`
+[Попробовать бота](https://t.me/kzn_campus_map_bot). Пример ника: `jenniffr` или `diamondp`
 
 Присоединяйтесь к [обсуждению](https://github.com/DrVeles/campus_map_bot/discussions).
 

@@ -29,7 +29,7 @@ def parse_clusters():
     for cluster_id, cluster_name in kzn_clusters.items():
         request = requests.get(
             url=f"{url_endpoint}{cluster_id}/map",
-            params={"limit":"101", "offset":"0", "occupied": "true"},
+            params={"limit": "101", "offset": "0", "occupied": "true"},
             headers={"accept": "application/json", "Authorization": token},
             timeout=5,
         )
