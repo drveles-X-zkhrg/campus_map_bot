@@ -1,9 +1,7 @@
-from aiogram.utils.keyboard import InlineKeyboardBuilder
 import asyncio
 import logging
 import sys
 import os
-from dotenv import load_dotenv
 from typing import List
 from aiogram import F
 from api_calls import (
@@ -14,24 +12,19 @@ from api_calls import (
     get_peer_status,
 )
 
-from aiogram import Bot, Dispatcher, html
+from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
 from aiogram.types import (
     Message,
-    InlineKeyboardButton,
     CallbackQuery,
-    ReplyKeyboardRemove,
 )
 from keyboards import (
     get_main_keyboard,
     get_friends_list_to_delete_keyboard,
     get_back_keyboard,
 )
-from aiogram.filters import Command
-from aiogram.methods.send_message import SendMessage
-from aiogram.methods.edit_message_text import EditMessageText
 from aiogram.filters import Command, StateFilter
 from aiogram.fsm.context import FSMContext
 from states import FriendsStatesGroup

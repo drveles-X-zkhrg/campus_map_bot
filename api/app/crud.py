@@ -1,11 +1,8 @@
 import redis
 import json
-import uuid
-from datetime import datetime
 from app import schemas
 from app import database
 from app import transactions
-from pydantic import create_model
 
 redis_client = database.get_redis_client()
 

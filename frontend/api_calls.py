@@ -79,12 +79,12 @@ def get_friends(tg_id: int) -> List[str]:
 
 def add_friend(tg_id: int, peer_name: str) -> str:
     data = {"tg_id": tg_id, "peer_name": peer_name}
-    resp = requests.post(API_ADDRESS + API_PORT + "/add_friend/", json=data, timeout=2)
+    requests.post(API_ADDRESS + API_PORT + "/add_friend/", json=data, timeout=2)
 
 
 def delete_friend(tg_id: int, peer_name: str) -> List:
     data = {"tg_id": tg_id, "peer_name": peer_name}
-    resp = requests.post(
+    requests.post(
         API_ADDRESS + API_PORT + "/delete_friend/", json=data, timeout=2
     )
 
