@@ -12,7 +12,7 @@ def get_token():
     ###  Auth and return token: `Bearer $token`
     """
     request = requests.post(
-        url="https://auth.sberclass.ru/auth/realms/EduPowerKeycloak/protocol/openid-connect/token",
+        url="https://auth.21-school.ru/auth/realms/EduPowerKeycloak/protocol/openid-connect/token",
         data={
             "username": os.getenv("EDU_SCHOOL_LOGIN"),
             "password": os.getenv("EDU_SCHOOL_PASSWORD"),
