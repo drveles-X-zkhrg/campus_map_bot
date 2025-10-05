@@ -24,7 +24,7 @@ def parse_clusters():
     all_peers = {"peers": {}}
 
     token = get_auth_token.get_token()
-    url_endpoint = "https://edu-api.21-school.ru/services/21-school/api/v1/clusters/"
+    url_endpoint = "https://platform.21-school.ru/services/21-school/api/v1/clusters/"
 
     for cluster_id, cluster_name in kzn_clusters.items():
         request = requests.get(
