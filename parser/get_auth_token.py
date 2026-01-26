@@ -45,12 +45,8 @@ def get_token():
     expires_in = token_response.get("expires_in", 3600)
     _token_expiry = time.time() + expires_in - 60
 
+    logging.info(
+        "New OAuth token received and cached. It will expire in %d seconds.", expires_in)
+
     return _cached_token
 
-
-def clear_token_cache():
-    """Clean cache"""
-
-    global _cached_token, _token_expiry
-    _cached_token = None
-    _token_expiry = 0
