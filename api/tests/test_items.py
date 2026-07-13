@@ -1,1 +1,1 @@
-# pass
+"""Tests for API item routes."""

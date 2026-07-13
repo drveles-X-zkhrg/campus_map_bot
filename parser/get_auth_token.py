@@ -7,8 +7,7 @@ import os
 import time
 import requests
 
-_cached_token = None
-_token_expiry = 0
+_TOKEN_CACHE = {"token": None, "expiry": 0.0}
 
 
 def get_token():
@@ -16,10 +15,8 @@ def get_token():
     ###  Auth and return token: `Bearer $token`
     """
 
-    global _cached_token, _token_expiry
-
-    if _cached_token and time.time() < _token_expiry:
-        return _cached_token
+    if _TOKEN_CACHE["token"] and time.time() < _TOKEN_CACHE["expiry"]:
+        return _TOKEN_CACHE["token"]
 
     request = requests.post(
         url="https://auth.21-school.ru/auth/realms/EduPowerKeycloak/protocol/openid-connect/token",
@@ -40,13 +37,13 @@ def get_token():
     token_response = request.json()
     access_token = token_response.get("access_token", "")
 
-    _cached_token = "Bearer " + access_token
+    _TOKEN_CACHE["token"] = "Bearer " + access_token
 
     expires_in = token_response.get("expires_in", 3600)
-    _token_expiry = time.time() + expires_in - 60
+    _TOKEN_CACHE["expiry"] = time.time() + expires_in - 60
 
     logging.info(
-        "New OAuth token received and cached. It will expire in %d seconds.", expires_in)
+        "New OAuth token received and cached. It will expire in %d seconds.", expires_in
+    )
 
-    return _cached_token
-
+    return _TOKEN_CACHE["token"]
