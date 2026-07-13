@@ -1,22 +1,22 @@
-name: Deploy to Server
+name: Rollback Deployment
 
 on:
   workflow_dispatch:
     inputs:
       ref:
-        description: Git ref to deploy (branch, tag, or SHA)
+        description: Git ref to rollback to (commit SHA or tag)
         type: string
-        default: main
+        required: true
       target_env:
         description: Deployment environment
         type: choice
         options:
-          - prestable
           - stable
-        default: prestable
+          - prestable
+        default: stable
 
 jobs:
-  deploy:
+  rollback:
     runs-on: ubuntu-latest
     environment: ${{ inputs.target_env }}
 
