@@ -7,18 +7,11 @@ on:
         description: Git ref to deploy (branch, tag, or SHA)
         type: string
         default: main
-      target_env:
-        description: Deployment environment
-        type: choice
-        options:
-          - prestable
-          - stable
-        default: prestable
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.target_env }}
+    environment: stable
 
     steps:
     - name: Checkout repository
