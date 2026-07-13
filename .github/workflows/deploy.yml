@@ -1,17 +1,30 @@
-name: Deploy to Server 
+name: Deploy to Server
 
 on:
-  push:
-    branches:
-      - develop
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Git ref to deploy (branch, tag, or SHA)
+        type: string
+        default: main
+      target_env:
+        description: Deployment environment
+        type: choice
+        options:
+          - prestable
+          - stable
+        default: prestable
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: ${{ inputs.target_env }}
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.ref }}
 
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
