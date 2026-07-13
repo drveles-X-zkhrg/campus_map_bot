@@ -1,10 +1,12 @@
 name: Auto-tests docker compose builds
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
-      - develop
-      - all-testing
+      - main
 
 jobs:
   build-docker-compose:

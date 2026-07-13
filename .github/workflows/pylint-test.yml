@@ -3,10 +3,10 @@ name: Auto-tests to Pylint
 on:
   push:
     branches:
-      - all-testing
+      - main
   pull_request:
     branches:
-      - develop
+      - main
 
 jobs:
   check-pylint:
